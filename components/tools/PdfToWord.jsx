@@ -11,6 +11,7 @@ import {
   Shield,
   CheckCircle2,
   FileText,
+  ScanText,
 } from "lucide-react";
 
 import { saveAs } from "file-saver";
@@ -19,22 +20,30 @@ export default function PDFToWord() {
   const [file, setFile] =
     useState(null);
 
-  const [loading, setLoading] =
-    useState(false);
-
   const [converting, setConverting] =
     useState(false);
 
   const [success, setSuccess] =
     useState(false);
 
-  const [wordBlob, setWordBlob] =
+  const [layoutBlob, setLayoutBlob] =
+    useState(null);
+
+  const [ocrBlob, setOcrBlob] =
+    useState(null);
+
+  const [selectedMode, setSelectedMode] =
     useState(null);
 
   const [fileData, setFileData] =
     useState(null);
 
+  const [progress, setProgress] =
+    useState(0);
+
+  // =========================
   // PROCESS FILE
+  // =========================
   const processFile = (
     selectedFile
   ) => {
@@ -55,7 +64,13 @@ export default function PDFToWord() {
 
     setSuccess(false);
 
-    setWordBlob(null);
+    setLayoutBlob(null);
+
+    setOcrBlob(null);
+
+    setSelectedMode(null);
+
+    setProgress(0);
 
     setFileData({
       name: selectedFile.name,
@@ -69,7 +84,9 @@ export default function PDFToWord() {
     });
   };
 
+  // =========================
   // INPUT
+  // =========================
   const handleChange = (e) => {
     const f =
       e.target.files?.[0];
@@ -77,7 +94,9 @@ export default function PDFToWord() {
     if (f) processFile(f);
   };
 
+  // =========================
   // DROP
+  // =========================
   const handleDrop = (e) => {
     e.preventDefault();
 
@@ -90,23 +109,35 @@ export default function PDFToWord() {
   const handleDragOver = (e) =>
     e.preventDefault();
 
+  // =========================
   // RESET
+  // =========================
   const handleRemove = () => {
     setFile(null);
 
     setSuccess(false);
 
-    setWordBlob(null);
+    setLayoutBlob(null);
+
+    setOcrBlob(null);
+
+    setSelectedMode(null);
 
     setFileData(null);
+
+    setProgress(0);
   };
 
+  // =========================
   // CONVERT
+  // =========================
   const handleConvert =
-    async () => {
+    async (mode) => {
       if (!file) return;
 
       try {
+        setSelectedMode(mode);
+
         setConverting(true);
 
         const pdfjsLib =
@@ -114,18 +145,27 @@ export default function PDFToWord() {
             "pdfjs-dist"
           );
 
+        const Tesseract =
+          await import(
+            "tesseract.js"
+          );
+
         const {
           Document,
           Packer,
           Paragraph,
           ImageRun,
+          TextRun,
+          HeadingLevel,
         } = await import(
           "docx"
         );
 
+        // PDF WORKER
         pdfjsLib.GlobalWorkerOptions.workerSrc =
           `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
+        // LOAD PDF
         const arrayBuffer =
           await file.arrayBuffer();
 
@@ -136,14 +176,27 @@ export default function PDFToWord() {
             }
           ).promise;
 
-        const children = [];
+        // NORMAL DOCX
+        const layoutChildren =
+          [];
 
-        // EACH PAGE
+        // OCR DOCX
+        const ocrChildren = [];
+
+        // LOOP PAGES
         for (
           let i = 1;
           i <= pdf.numPages;
           i++
         ) {
+          setProgress(
+            Math.floor(
+              (i /
+                pdf.numPages) *
+                100
+            )
+          );
+
           const page =
             await pdf.getPage(i);
 
@@ -159,7 +212,9 @@ export default function PDFToWord() {
             );
 
           const context =
-            canvas.getContext("2d");
+            canvas.getContext(
+              "2d"
+            );
 
           canvas.width =
             viewport.width;
@@ -174,57 +229,147 @@ export default function PDFToWord() {
             viewport,
           }).promise;
 
-          // IMAGE
-          const dataUrl =
-            canvas.toDataURL(
-              "image/png"
+          // =========================
+          // WITHOUT OCR
+          // =========================
+          if (
+            mode === "normal"
+          ) {
+            const dataUrl =
+              canvas.toDataURL(
+                "image/png"
+              );
+
+            const imageBytes =
+              await fetch(
+                dataUrl
+              ).then((res) =>
+                res.arrayBuffer()
+              );
+
+            layoutChildren.push(
+              new Paragraph({
+                children: [
+                  new ImageRun({
+                    data: imageBytes,
+
+                    transformation:
+                      {
+                        width: 520,
+
+                        height:
+                          (viewport.height *
+                            520) /
+                          viewport.width,
+                      },
+                  }),
+                ],
+              })
+            );
+          }
+
+          // =========================
+          // OCR
+          // =========================
+          if (
+            mode === "ocr"
+          ) {
+            const result =
+              await Tesseract.recognize(
+                canvas,
+                "eng"
+              );
+
+            const text =
+              result.data.text;
+
+            ocrChildren.push(
+              new Paragraph({
+                text: `Page ${i}`,
+                heading:
+                  HeadingLevel.HEADING_2,
+              })
             );
 
-          const imageBytes =
-            await fetch(
-              dataUrl
-            ).then((res) =>
-              res.arrayBuffer()
+            const paragraphs =
+              text
+                .split(/\n+/)
+                .filter(
+                  (p) =>
+                    p.trim() !==
+                    ""
+                );
+
+            paragraphs.forEach(
+              (para) => {
+                ocrChildren.push(
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text:
+                          para.trim(),
+
+                        size: 24,
+                      }),
+                    ],
+                  })
+                );
+              }
             );
+          }
+        }
 
-          // DOCX PAGE
-          children.push(
-            new Paragraph({
-              children: [
-                new ImageRun({
-                  data: imageBytes,
-
-                  transformation:
-                    {
-                      width: 520,
-
-                      height:
-                        (viewport.height *
-                          520) /
-                        viewport.width,
-                    },
-                }),
+        // =========================
+        // NORMAL DOCX
+        // =========================
+        if (
+          mode === "normal"
+        ) {
+          const layoutDoc =
+            new Document({
+              sections: [
+                {
+                  children:
+                    layoutChildren,
+                },
               ],
-            })
+            });
+
+          const layoutBlobData =
+            await Packer.toBlob(
+              layoutDoc
+            );
+
+          setLayoutBlob(
+            layoutBlobData
           );
         }
 
-        // DOCX
-        const doc =
-          new Document({
-            sections: [
-              {
-                children,
-              },
-            ],
-          });
+        // =========================
+        // OCR DOCX
+        // =========================
+        if (
+          mode === "ocr"
+        ) {
+          const ocrDoc =
+            new Document({
+              sections: [
+                {
+                  children:
+                    ocrChildren,
+                },
+              ],
+            });
 
-        const blob =
-          await Packer.toBlob(
-            doc
+          const ocrBlobData =
+            await Packer.toBlob(
+              ocrDoc
+            );
+
+          setOcrBlob(
+            ocrBlobData
           );
-
-        setWordBlob(blob);
+        }
 
         setSuccess(true);
       } catch (err) {
@@ -238,24 +383,35 @@ export default function PDFToWord() {
       }
     };
 
-  // DOWNLOAD
-  const handleDownload = () => {
-    if (!wordBlob) return;
-
-    const filename =
-      file.name.replace(
-        /\.pdf$/i,
-        ".docx"
-      );
+  // =========================
+  // DOWNLOADS
+  // =========================
+  const downloadLayout = () => {
+    if (!layoutBlob) return;
 
     saveAs(
-      wordBlob,
-      filename
+      layoutBlob,
+      file.name.replace(
+        /\.pdf$/i,
+        "-layout.docx"
+      )
+    );
+  };
+
+  const downloadOCR = () => {
+    if (!ocrBlob) return;
+
+    saveAs(
+      ocrBlob,
+      file.name.replace(
+        /\.pdf$/i,
+        "-ocr.docx"
+      )
     );
   };
 
   return (
-    <div className="max-w-md mx-auto space-y-8">
+    <div className="max-w-lg mx-auto px-3 py-3 space-y-4">
 
       {/* UPLOADER */}
       <ImageUploader
@@ -272,102 +428,245 @@ export default function PDFToWord() {
         }
       />
 
-      {/* LOADING */}
-      {loading && (
-        <div className="bg-white rounded-3xl p-8 text-center shadow">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
-
-          <p className="font-semibold">
-            Reading PDF...
-          </p>
-        </div>
-      )}
-
-      {/* READY */}
+      {/* CARD */}
       {file && (
-        <div className="bg-white rounded-3xl p-6 shadow space-y-5">
+        <div className="bg-white rounded-[28px] shadow-lg border border-gray-100 p-5 space-y-5">
 
-          <div className="text-center">
+          {/* HEADER */}
+          <div className="text-center space-y-3">
 
-            <div className="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8" />
+            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+              <ScanText className="w-8 h-8" />
             </div>
 
-            <h2 className="text-2xl font-black">
-              PDF to Word
-            </h2>
+            <div>
+              <h2 className="text-2xl font-black text-gray-900">
+                PDF to Word
+              </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
-              Preserve original
-              layout and design
-            </p>
+              <p className="text-sm text-gray-500 mt-1">
+                Convert PDFs into
+                editable DOCX files.
+              </p>
+            </div>
           </div>
 
-          {/* SUCCESS */}
-          {success && (
-            <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-600 font-semibold flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-5 h-5" />
-              DOCX Ready
+          {/* FILE INFO */}
+          <div className="bg-gray-50 rounded-2xl border border-gray-100 p-4 flex items-center justify-between">
+
+            <div className="min-w-0">
+              <p className="font-semibold text-sm truncate">
+                {fileData?.name}
+              </p>
+
+              <p className="text-xs text-gray-500 mt-1">
+                {fileData?.size}
+              </p>
+            </div>
+
+            <div className="w-10 h-10 rounded-xl bg-white border flex items-center justify-center">
+              <FileText className="w-5 h-5 text-blue-500" />
+            </div>
+          </div>
+
+          {/* PROGRESS */}
+          {converting && (
+            <div>
+
+              <div className="flex items-center justify-between mb-2 text-sm font-semibold">
+                <span>
+                  {selectedMode ===
+                  "ocr"
+                    ? "OCR Processing"
+                    : "Converting PDF"}
+                </span>
+
+                <span>
+                  {progress}%
+                </span>
+              </div>
+
+              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all"
+                  style={{
+                    width: `${progress}%`,
+                  }}
+                />
+              </div>
             </div>
           )}
 
-          {/* ACTIONS */}
-          <div className="flex gap-4">
+          {/* BEFORE SUCCESS */}
+          {!success && (
+            <div className="space-y-4">
 
-            {/* RESET */}
-            <button
-              onClick={
-                handleRemove
-              }
-              className="w-full h-12 rounded-2xl border font-semibold flex items-center justify-center gap-2"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reset
-            </button>
+              {/* OPTIONS */}
+              <div className="grid gap-3">
 
-            {/* CONVERT */}
-            {!success ? (
-              <button
-                onClick={
-                  handleConvert
-                }
-                disabled={
-                  converting
-                }
-                className="w-full h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold flex items-center justify-center gap-2"
-              >
-                {converting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Converting...
-                  </>
-                ) : (
-                  <>
+                {/* NORMAL */}
+                <button
+                  onClick={() =>
+                    setSelectedMode(
+                      "normal"
+                    )
+                  }
+                  className={`rounded-2xl border p-4 text-left transition-all
+                    ${
+                      selectedMode ===
+                      "normal"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-blue-200 bg-blue-50/50"
+                    }`}
+                >
+                  <h3 className="font-bold text-gray-900">
+                    Without OCR
+                  </h3>
+
+                  <p className="text-sm text-gray-500 mt-1">
+                    Faster and
+                    preserves original
+                    layout.
+                  </p>
+                </button>
+
+                {/* OCR */}
+                <button
+                  onClick={() =>
+                    setSelectedMode(
+                      "ocr"
+                    )
+                  }
+                  className={`rounded-2xl border p-4 text-left transition-all
+                    ${
+                      selectedMode ===
+                      "ocr"
+                        ? "border-purple-500 bg-purple-50"
+                        : "border-purple-200 bg-purple-50/50"
+                    }`}
+                >
+                  <h3 className="font-bold text-gray-900">
+                    With OCR
+                  </h3>
+
+                  <p className="text-sm text-gray-500 mt-1">
+                    Best for scanned
+                    PDFs and images.
+                  </p>
+                </button>
+              </div>
+
+              {/* BUTTONS */}
+              {!converting && (
+                <div className="grid grid-cols-2 gap-3">
+
+                  {/* RESET */}
+                  <button
+                    onClick={
+                      handleRemove
+                    }
+                    className="h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Reset
+                  </button>
+
+                  {/* CONVERT */}
+                  <button
+                    disabled={
+                      !selectedMode
+                    }
+                    onClick={() =>
+                      handleConvert(
+                        selectedMode
+                      )
+                    }
+                    className={`h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 transition
+                      ${
+                        !selectedMode
+                          ? "bg-gray-300 cursor-not-allowed"
+                          : selectedMode ===
+                            "ocr"
+                          ? "bg-gradient-to-r from-purple-500 to-pink-600"
+                          : "bg-gradient-to-r from-blue-500 to-cyan-600"
+                      }`}
+                  >
                     <Download className="w-4 h-4" />
-                    Convert
-                  </>
-                )}
+                    Convert Now
+                  </button>
+                </div>
+              )}
+
+              {/* LOADING */}
+              {converting && (
+                <div className="bg-gray-50 rounded-2xl p-5 text-center">
+
+                  <Loader2 className="w-8 h-8 animate-spin mx-auto mb-3 text-blue-600" />
+
+                  <p className="font-semibold text-sm">
+                    {selectedMode ===
+                    "ocr"
+                      ? "OCR Processing..."
+                      : "Converting PDF..."}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* SUCCESS */}
+          {success && (
+            <div className="space-y-3">
+
+              <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-700 font-semibold flex items-center justify-center gap-2 text-sm">
+                <CheckCircle2 className="w-5 h-5" />
+                DOCX Ready
+              </div>
+
+              {/* DOWNLOAD */}
+              <button
+                onClick={() => {
+                  if (
+                    selectedMode ===
+                    "ocr"
+                  ) {
+                    downloadOCR();
+                  } else {
+                    downloadLayout();
+                  }
+                }}
+                className={`w-full h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 shadow-lg transition
+                  ${
+                    selectedMode ===
+                    "ocr"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-600"
+                      : "bg-gradient-to-r from-blue-500 to-cyan-600"
+                  }`}
+              >
+                <Download className="w-5 h-5" />
+                Download DOCX
               </button>
-            ) : (
+
+              {/* AGAIN */}
               <button
                 onClick={
-                  handleDownload
+                  handleRemove
                 }
-                className="w-full h-12 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2"
+                className="w-full h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
               >
-                <Download className="w-4 h-4" />
-                Download
+                <RotateCcw className="w-4 h-4" />
+                Upload Another PDF
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
 
       {/* FOOTER */}
-      <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-        <Shield size={16} />
-        Your files remain private
-      </p>
+      <div className="text-center text-xs text-gray-500 flex items-center justify-center gap-2 pb-2">
+        <Shield size={14} />
+        Files are processed locally in your browser.
+      </div>
     </div>
   );
 }

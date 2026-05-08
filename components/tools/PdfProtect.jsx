@@ -1,33 +1,39 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { Lock, Upload, Download, ShieldCheck } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
-import { Upload, Download, Lock, RotateCcw, FileText } from "lucide-react";
 
 export default function PDFProtect() {
   const [file, setFile] = useState(null);
   const [password, setPassword] = useState("");
-  const [protectedUrl, setProtectedUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef(null);
 
-  const handleFile = (f) => {
-    if (f && f.type === "application/pdf") {
-      setFile(f);
-      setProtectedUrl(null);
-    }
+  // UPLOAD FILE
+  const handleFile = (e) => {
+    const selected = e.target.files?.[0];
+
+    if (!selected) return;
+
+    setFile(selected);
   };
 
+  // PROTECT PDF
   const protectPDF = async () => {
-    if (!file || !password) return;
-
-    setLoading(true);
+    if (!file || !password) {
+      alert("Please upload PDF and enter password");
+      return;
+    }
 
     try {
+      setLoading(true);
+
       const bytes = await file.arrayBuffer();
+
       const pdfDoc = await PDFDocument.load(bytes);
 
-      const protectedBytes = await pdfDoc.save({
+      // ENCRYPT PDF
+      pdfDoc.encrypt({
         userPassword: password,
         ownerPassword: password,
         permissions: {
@@ -35,107 +41,118 @@ export default function PDFProtect() {
           modifying: false,
           copying: false,
           annotating: false,
+          fillingForms: false,
+          contentAccessibility: true,
+          documentAssembly: false,
         },
       });
 
-      const blob = new Blob([protectedBytes], {
+      const protectedPdf = await pdfDoc.save();
+
+      const blob = new Blob([protectedPdf], {
         type: "application/pdf",
       });
 
       const url = URL.createObjectURL(blob);
-      setProtectedUrl(url);
-    } catch (err) {
-      console.error(err);
+
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = "protected.pdf";
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to protect PDF");
     } finally {
       setLoading(false);
     }
   };
 
-  const download = () => {
-    if (!protectedUrl) return;
-
-    const a = document.createElement("a");
-    a.href = protectedUrl;
-    a.download = "protected.pdf";
-    a.click();
-  };
-
-  const reset = () => {
-    setFile(null);
-    setPassword("");
-    setProtectedUrl(null);
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
-      <div className="w-full max-w-xl bg-white shadow-xl rounded-2xl p-6 space-y-6">
-        <h1 className="text-2xl font-semibold text-center">Protect PDF</h1>
+    <div className="min-h-screen bg-[#f5f7fb] flex items-center justify-center p-5">
 
-        {!file && (
-          <div
-            onClick={() => inputRef.current?.click()}
-            className="border-2 border-dashed rounded-xl p-10 text-center cursor-pointer hover:bg-gray-50"
-          >
-            <Upload className="mx-auto mb-2" />
-            <p className="text-sm">Upload PDF</p>
+      <div className="w-full max-w-2xl bg-white rounded-[32px] shadow-xl p-8">
+
+        {/* HEADER */}
+        <div className="text-center mb-8">
+
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-red-100 text-red-500 flex items-center justify-center mb-4">
+            <Lock size={40} />
+          </div>
+
+          <h1 className="text-4xl font-black text-gray-900">
+            PDF Protect
+          </h1>
+
+          <p className="text-gray-500 mt-3">
+            Secure your PDF files with a password instantly.
+          </p>
+        </div>
+
+        {/* UPLOAD */}
+        <div className="mb-6">
+
+          <label className="border-2 border-dashed border-gray-300 rounded-3xl h-[180px] flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition">
+
+            <Upload size={42} className="mb-3 text-gray-500" />
+
+            <p className="font-semibold text-lg">
+              Upload PDF File
+            </p>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Select your PDF document
+            </p>
+
             <input
-              ref={inputRef}
               type="file"
-              accept="application/pdf"
-              className="hidden"
-              onChange={(e) => handleFile(e.target.files?.[0])}
+              hidden
+              accept=".pdf"
+              onChange={handleFile}
             />
-          </div>
-        )}
+          </label>
 
-        {file && !protectedUrl && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 bg-gray-100 rounded-xl p-4">
-              <FileText />
-              <p className="font-medium">{file.name}</p>
+          {file && (
+            <div className="mt-4 bg-gray-50 rounded-2xl p-4 text-sm font-medium">
+              {file.name}
             </div>
+          )}
+        </div>
 
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded-lg p-3"
-            />
+        {/* PASSWORD */}
+        <div className="mb-8">
 
-            <button
-              onClick={protectPDF}
-              disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 rounded-lg"
-            >
-              {loading ? "Protecting..." : "Protect PDF"}
-            </button>
-          </div>
-        )}
+          <label className="font-bold text-lg mb-3 block">
+            Enter Password
+          </label>
 
-        {protectedUrl && (
-          <div className="space-y-4 text-center">
-            <p className="text-green-600">PDF protected successfully</p>
+          <input
+            type="password"
+            placeholder="Enter secure password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border-2 border-gray-200 rounded-2xl px-5 py-4 outline-none focus:ring-4 focus:ring-red-100"
+          />
+        </div>
 
-            <button
-              onClick={download}
-              className="w-full bg-green-600 text-white py-2 rounded-lg"
-            >
-              <Download className="inline mr-2" size={16} /> Download PDF
-            </button>
-
-            <button
-              onClick={reset}
-              className="w-full border py-2 rounded-lg"
-            >
-              <RotateCcw className="inline mr-2" size={16} /> Start Over
-            </button>
-          </div>
-        )}
-
-        <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-1">
-          <Lock size={12} /> Your files remain private and secure.
-        </p>
+        {/* ACTION */}
+        <button
+          onClick={protectPDF}
+          disabled={loading}
+          className="w-full h-14 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg hover:opacity-90 transition"
+        >
+          {loading ? (
+            "Protecting PDF..."
+          ) : (
+            <>
+              <ShieldCheck size={22} />
+              Protect PDF
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
