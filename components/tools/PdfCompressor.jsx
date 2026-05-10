@@ -332,7 +332,7 @@ export default function PDFCompressor() {
 
             {/* TITLE */}
             <div>
-              <h2 className="text-4xl font-black text-gray-900">
+              <h2 className="text-3xl font-black text-gray-900">
                 PDF Compressed
               </h2>
 
@@ -347,11 +347,11 @@ export default function PDFCompressor() {
 
               {/* ORIGINAL */}
               <div className="bg-gray-50 rounded-3xl py-6">
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-600 text-sm">
                   Original
                 </p>
 
-                <h3 className="text-3xl font-black mt-2">
+                <h3 className="text-2xl font-black mt-2">
                   {formatBytes(
                     result.originalSize
                   )}
@@ -364,7 +364,7 @@ export default function PDFCompressor() {
                   New
                 </p>
 
-                <h3 className="text-3xl font-black text-blue-600 mt-2">
+                <h3 className="text-2xl font-black text-blue-600 mt-2">
                   {formatBytes(
                     result.newSize
                   )}
@@ -377,7 +377,7 @@ export default function PDFCompressor() {
                   Reduced
                 </p>
 
-                <h3 className="text-3xl font-black text-green-600 mt-2">
+                <h3 className="text-2xl font-black text-green-600 mt-2">
                   {
                     result.reduction
                   }
@@ -497,8 +497,8 @@ export default function PDFCompressor() {
                 <FileText className="w-10 h-10" />
               </div>
 
-              <h2 className="text-3xl font-black">
-                Compress PDF
+              <h2 className="text-2xl font-black">
+                Select Option
               </h2>
 
               <p className="text-gray-500 text-sm mt-2">

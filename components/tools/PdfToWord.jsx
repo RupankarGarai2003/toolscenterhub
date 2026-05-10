@@ -439,16 +439,6 @@ export default function PDFToWord() {
               <ScanText className="w-8 h-8" />
             </div>
 
-            <div>
-              <h2 className="text-2xl font-black text-gray-900">
-                PDF to Word
-              </h2>
-
-              <p className="text-sm text-gray-500 mt-1">
-                Convert PDFs into
-                editable DOCX files.
-              </p>
-            </div>
           </div>
 
           {/* FILE INFO */}

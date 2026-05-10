@@ -344,8 +344,8 @@ export default function WordToPDF() {
 
             </div>
 
-            <h2 className="text-2xl font-black">
-              Ready to Export
+            <h2 className="text-xl font-black">
+              Ready to Download
             </h2>
 
             <p className="text-sm text-gray-500 mt-1">
@@ -392,7 +392,7 @@ export default function WordToPDF() {
 
               <Download className="w-4 h-4" />
 
-              Export PDF
+              Download PDF
 
             </button>
 

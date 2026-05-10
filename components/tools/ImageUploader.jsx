@@ -45,6 +45,7 @@ export default function ImageUploader({
                     ? "Supports JPG, PNG, WEBP"
                     : "Supports PDF, DOC, DOCX"}
                 </p>
+                
               </div>
             </div>
 
