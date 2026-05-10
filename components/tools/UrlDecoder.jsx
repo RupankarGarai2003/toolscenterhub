@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Clipboard, Check, RotateCcw, Download } from "lucide-react";
+import {
+  Clipboard,
+  Check,
+  RotateCcw,
+  Download,
+} from "lucide-react";
 
 import About from "@/components/tool-content/About";
 import HowToUse from "@/components/tool-content/HowToUse";
@@ -18,26 +23,36 @@ export default function URLDecoder() {
   const decodeURL = () => {
     try {
       const decoded = decodeURIComponent(input);
+
       setOutput(decoded);
       setError("");
     } catch (err) {
       console.error(err);
+
       setError("Invalid encoded URL");
       setOutput("");
     }
   };
 
-  const copy = async () => {
+  const copyToClipboard = async () => {
     if (!output) return;
+
     await navigator.clipboard.writeText(output);
+
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
   };
 
-  const download = () => {
+  const downloadFile = () => {
     if (!output) return;
 
-    const blob = new Blob([output], { type: "text/plain" });
+    const blob = new Blob([output], {
+      type: "text/plain;charset=utf-8",
+    });
+
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
@@ -48,7 +63,7 @@ export default function URLDecoder() {
     URL.revokeObjectURL(url);
   };
 
-  const reset = () => {
+  const resetFields = () => {
     setInput("");
     setOutput("");
     setError("");
@@ -56,69 +71,89 @@ export default function URLDecoder() {
 
   return (
     <>
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-6 space-y-6">
-        <h1 className="text-2xl font-semibold text-center">URL Decoder</h1>
+      <div className="bg-white py-8 px-4">
+        <div className="max-w-4xl mx-auto border border-gray-200 rounded-2xl p-5 md:p-6 shadow-sm">
+          {/* Input */}
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-gray-800 mb-2">
+              Paste Encoded URL
+            </label>
 
-        {/* Input */}
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste encoded URL here..."
-          className="w-full h-40 p-4 border rounded-xl font-mono text-sm"
-        />
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="https%3A%2F%2Fexample.com%2Fsearch%3Fq%3Dhello%2520world"
+              className="w-full h-36 rounded-xl border border-gray-300 p-4 text-sm text-gray-800 placeholder:text-gray-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 resize-none"
+            />
+          </div>
 
-        {/* Output */}
-        <textarea
-          value={output}
-          readOnly
-          placeholder="Decoded result will appear here..."
-          className="w-full h-40 p-4 border rounded-xl font-mono text-sm bg-gray-50"
-        />
+          {/* Output */}
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-gray-800 mb-2">
+              Decoded Result
+            </label>
 
-        {/* Error */}
-        {error && (
-          <p className="text-red-500 text-sm text-center">{error}</p>
-        )}
+            <textarea
+              value={output}
+              readOnly
+              placeholder="Decoded URL will appear here..."
+              className="w-full h-36 rounded-xl border border-gray-300 bg-gray-50 p-4 text-sm text-gray-800 placeholder:text-gray-400 outline-none resize-none"
+            />
+          </div>
 
-        {/* Actions */}
-        <div className="flex flex-wrap gap-3 justify-center">
-          <button
-            onClick={decodeURL}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg"
-          >
-            Decode URL
-          </button>
+          {/* Error */}
+          {error && (
+            <p className="text-red-500 text-sm mb-5 text-center">
+              {error}
+            </p>
+          )}
 
-          <button
-            onClick={copy}
-            className="bg-green-600 text-white px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            {copied ? <Check size={16} /> : <Clipboard size={16} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
+          {/* Buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              onClick={decodeURL}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition"
+            >
+              Decode URL
+            </button>
 
-          <button
-            onClick={download}
-            className="bg-purple-600 text-white px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            <Download size={16} /> Download
-          </button>
+            <button
+              onClick={copyToClipboard}
+              disabled={!output}
+              className="bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              {copied ? <Check size={16} /> : <Clipboard size={16} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
 
-          <button
-            onClick={reset}
-            className="border px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            <RotateCcw size={16} /> Reset
-          </button>
+            <button
+              onClick={downloadFile}
+              disabled={!output}
+              className="bg-violet-500 hover:bg-violet-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              <Download size={16} />
+              Download
+            </button>
+
+            <button
+              onClick={resetFields}
+              className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              <RotateCcw size={16} />
+              Reset
+            </button>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-5 text-center">
+            <span className="inline-block text-xs text-gray-500 bg-gray-50 border border-gray-200 px-3 py-2 rounded-lg">
+              🔒 Decoding happens locally in your browser.
+            </span>
+          </div>
         </div>
-
-        <p className="text-xs text-center text-gray-500">
-          🔒 Decoding happens in your browser. No data is uploaded.
-        </p>
       </div>
-    </div>
-        <div className="contentWrapper">
+
+      <div className="contentWrapper">
         <About />
         <HowToUse />
         <Features />

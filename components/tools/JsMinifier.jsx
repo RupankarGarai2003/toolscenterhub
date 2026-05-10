@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { minify } from "terser";
-import { Clipboard, Check, Download, RotateCcw } from "lucide-react";
+import {
+  Clipboard,
+  Check,
+  Download,
+  RotateCcw,
+} from "lucide-react";
 
 import About from "@/components/tool-content/About";
 // import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
-
 
 export default function JSMinifier() {
   const [input, setInput] = useState("");
@@ -18,7 +22,7 @@ export default function JSMinifier() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔧 MINIFY FUNCTION
+  // MINIFY
   const handleMinify = async () => {
     if (!input.trim()) return;
 
@@ -34,6 +38,7 @@ export default function JSMinifier() {
       setOutput(result.code || "");
     } catch (err) {
       console.error(err);
+
       setError("Invalid JavaScript code");
       setOutput("");
     } finally {
@@ -41,19 +46,27 @@ export default function JSMinifier() {
     }
   };
 
-  // 📋 COPY
-  const copy = async () => {
+  // COPY
+  const copyToClipboard = async () => {
     if (!output) return;
+
     await navigator.clipboard.writeText(output);
+
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
   };
 
-  // 📥 DOWNLOAD
-  const download = () => {
+  // DOWNLOAD
+  const downloadFile = () => {
     if (!output) return;
 
-    const blob = new Blob([output], { type: "application/javascript" });
+    const blob = new Blob([output], {
+      type: "application/javascript",
+    });
+
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
@@ -64,83 +77,127 @@ export default function JSMinifier() {
     URL.revokeObjectURL(url);
   };
 
-  // 🔄 RESET
-  const reset = () => {
+  // RESET
+  const resetFields = () => {
     setInput("");
     setOutput("");
     setError("");
   };
 
+  // STATS
+  const originalSize = new Blob([input]).size;
+  const minifiedSize = new Blob([output]).size;
+
+  const saved =
+    originalSize > 0
+      ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(1)
+      : 0;
+
   return (
     <>
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-6 space-y-6">
+      <div className="bg-white py-8 px-4">
+        <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl p-5 md:p-6 shadow-sm">
+          {/* Input */}
+          <div className="mb-5">
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-sm font-medium text-gray-800">
+                JavaScript Input
+              </label>
 
-        <h1 className="text-2xl font-semibold text-center">
-          JavaScript Minifier
-        </h1>
+              <span className="text-xs text-gray-500">
+                {originalSize} bytes
+              </span>
+            </div>
 
-        {/* INPUT */}
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste your JavaScript code here..."
-          className="w-full h-52 p-4 border rounded-xl font-mono text-sm"
-        />
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Paste your JavaScript code here..."
+              className="w-full h-56 rounded-xl border border-gray-300 p-4 text-sm text-gray-800 placeholder:text-gray-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 resize-none font-mono"
+            />
+          </div>
 
-        {/* OUTPUT */}
-        <textarea
-          value={output}
-          readOnly
-          placeholder="Minified code will appear here..."
-          className="w-full h-52 p-4 border rounded-xl font-mono text-sm bg-gray-50"
-        />
+          {/* Output */}
+          <div className="mb-5">
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-sm font-medium text-gray-800">
+                Minified Output
+              </label>
 
-        {/* ERROR */}
-        {error && (
-          <p className="text-red-500 text-sm text-center">{error}</p>
-        )}
+              <div className="flex items-center gap-3 text-xs text-gray-500">
+                <span>{minifiedSize} bytes</span>
 
-        {/* ACTIONS */}
-        <div className="flex flex-wrap gap-3 justify-center">
-          <button
-            onClick={handleMinify}
-            disabled={loading}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg disabled:opacity-50"
-          >
-            {loading ? "Minifying..." : "Minify JS"}
-          </button>
+                {output && (
+                  <span className="text-green-600 font-medium">
+                    ↓ {saved}% smaller
+                  </span>
+                )}
+              </div>
+            </div>
 
-          <button
-            onClick={copy}
-            className="bg-green-600 text-white px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            {copied ? <Check size={16} /> : <Clipboard size={16} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
+            <textarea
+              value={output}
+              readOnly
+              placeholder="Minified code will appear here..."
+              className="w-full h-56 rounded-xl border border-gray-300 bg-gray-50 p-4 text-sm text-gray-800 placeholder:text-gray-400 outline-none resize-none font-mono"
+            />
+          </div>
 
-          <button
-            onClick={download}
-            className="bg-purple-600 text-white px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            <Download size={16} /> Download
-          </button>
+          {/* Error */}
+          {error && (
+            <p className="text-red-500 text-sm mb-5 text-center">
+              {error}
+            </p>
+          )}
 
-          <button
-            onClick={reset}
-            className="border px-6 py-2 rounded-lg flex items-center gap-2"
-          >
-            <RotateCcw size={16} /> Reset
-          </button>
+          {/* Buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              onClick={handleMinify}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition"
+            >
+              {loading ? "Minifying..." : "Minify JS"}
+            </button>
+
+            <button
+              onClick={copyToClipboard}
+              disabled={!output}
+              className="bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              {copied ? <Check size={16} /> : <Clipboard size={16} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+
+            <button
+              onClick={downloadFile}
+              disabled={!output}
+              className="bg-violet-500 hover:bg-violet-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              <Download size={16} />
+              Download
+            </button>
+
+            <button
+              onClick={resetFields}
+              className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              <RotateCcw size={16} />
+              Reset
+            </button>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-5 text-center">
+            <span className="inline-block text-xs text-gray-500 bg-gray-50 border border-gray-200 px-3 py-2 rounded-lg">
+              🔒 Code is processed locally in your browser using
+              Terser.
+            </span>
+          </div>
         </div>
-
-        <p className="text-xs text-center text-gray-500">
-          🔒 Code is processed locally in your browser using Terser.
-        </p>
       </div>
-    </div>
 
-        <div className="contentWrapper">
+      <div className="contentWrapper">
         <About />
         {/* <HowToUse /> */}
         <Features />
