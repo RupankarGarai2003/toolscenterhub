@@ -27,7 +27,7 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-6xl font-extrabold text-gray-900"
         >
-          About ToolCenterHub 🚀
+          About ToolsCenterHub 🚀
         </motion.h1>
 
         <p className="text-gray-600 mt-6 text-lg md:text-xl">
@@ -38,7 +38,7 @@ export default function AboutPage() {
       {/* DESCRIPTION */}
       <section className="max-w-3xl mx-auto mt-14 text-center">
         <p className="text-gray-700 leading-relaxed text-lg">
-          ToolCenterHub provides free online tools for images, PDFs, and developers.
+          ToolsCenterHub provides free online tools for images, PDFs, and developers.
           No installs, no signups — just fast and secure tools that work instantly.
         </p>
       </section>

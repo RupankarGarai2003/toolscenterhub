@@ -13,7 +13,7 @@ const commonFAQ = [
   },
   {
     q: "Do I need to create an account?",
-    a: "No, you can use all ToolCenterHub tools instantly without registration or login.",
+    a: "No, you can use all ToolsCenterHub tools instantly without registration or login.",
   },
   {
     q: "Are my files secure?",

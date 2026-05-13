@@ -26,7 +26,7 @@ export default function ContactPage() {
         <div className="text-center mb-8">
           <p className="text-gray-600">Reach us directly at:</p>
           <p className="text-lg font-semibold text-indigo-600 mt-2">
-            support@toolcenterhub.com
+            support@toolscenterhub.com
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export default function ContactPage() {
 
       {/* FOOTER */}
       <div className="text-center mt-10 text-sm text-gray-500">
-        © {new Date().getFullYear()} ToolCenterHub. All rights reserved.
+        © {new Date().getFullYear()} ToolsCenterHub. All rights reserved.
       </div>
     </div>
   );

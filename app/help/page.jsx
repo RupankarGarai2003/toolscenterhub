@@ -97,7 +97,7 @@ const faqData = [
   {
     question: "Are these tools free to use?",
     answer:
-      "Yes, all tools on ToolCenterHub are completely free and require no registration.",
+      "Yes, all tools on ToolsCenterHub are completely free and require no registration.",
   },
   {
     question: "Is my data secure?",

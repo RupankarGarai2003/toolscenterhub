@@ -35,7 +35,7 @@ export default function PolicyPage() {
       <section className="max-w-4xl mx-auto mt-12 bg-white/70 backdrop-blur-lg p-8 md:p-10 rounded-2xl shadow-md border border-white/40 space-y-8">
 
         <Section title="Overview">
-          ToolCenterHub is committed to protecting your privacy. Our tools are designed to work directly in your browser without storing your data.
+          ToolsCenterHub is committed to protecting your privacy. Our tools are designed to work directly in your browser without storing your data.
         </Section>
 
         <Section title="Data Collection">
@@ -70,7 +70,7 @@ export default function PolicyPage() {
 
       {/* FOOTER */}
       <div className="text-center mt-10 text-sm text-gray-500">
-        © {new Date().getFullYear()} ToolCenterHub. All rights reserved.
+        © {new Date().getFullYear()} ToolsCenterHub. All rights reserved.
       </div>
     </div>
   );

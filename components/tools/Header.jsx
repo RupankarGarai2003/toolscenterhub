@@ -61,7 +61,7 @@ export default function Header() {
 
         {/* LOGO */}
         <Link href="/" className="logo">
-          ToolCenterHub
+          ToolsCenterHub
         </Link>
 
         {/* DESKTOP NAV */}

@@ -12,7 +12,7 @@ export default function Footer() {
 
         {/* COMPANY */}
         <div className="footer-col">
-          <h3>ToolCenterHub</h3>
+          <h3>ToolsCenterHub</h3>
           <p>
             Free online tools for images, PDFs, and developers.
             Fast, secure, and easy to use.
@@ -42,7 +42,7 @@ export default function Footer() {
           <h4>Contact</h4>
 
           <p><MapPin size={14} /> India</p>
-          <p><Mail size={14} /> support@toolcenterhub.com</p>
+          <p><Mail size={14} /> support@toolscenterhub.com</p>
           <p><Phone size={14} /> +91 99999 99999</p>
         </div>
 
@@ -50,7 +50,7 @@ export default function Footer() {
 
       {/* BOTTOM */}
       <div className="footer-bottom">
-        © {new Date().getFullYear()} ToolCenterHub. All rights reserved.
+        © {new Date().getFullYear()} ToolsCenterHub. All rights reserved.
       </div>
 
     </footer>
