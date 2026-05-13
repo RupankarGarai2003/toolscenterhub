@@ -1,9 +1,9 @@
-import toolsList from "@/lib/toolsList";
+import { tools } from "@/lib/toolsList";
 
 export default function sitemap() {
   const baseUrl = "https://toolscenterhub.com";
 
-  const tools = toolsList.map((tool) => ({
+  const toolRoutes = tools.map((tool) => ({
     url: `${baseUrl}/tools/${tool.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
@@ -17,6 +17,6 @@ export default function sitemap() {
       changeFrequency: "daily",
       priority: 1,
     },
-    ...tools,
+    ...toolRoutes,
   ];
 }
