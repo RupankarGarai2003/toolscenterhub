@@ -4,140 +4,110 @@ import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import styles from "../../components/Styles/tool-component/Features.module.css";
 
-// 🔥 Common features (used for ALL tools)
-const commonFeatures = [
-  "Fast and easy to use",
-  "No signup or login required",
-  "Secure and private processing",
-  "Works on mobile, tablet, and desktop",
-  "High-quality output results",
-];
-
-// 🔥 Dynamic keyword-based features
-const dynamicFeatures = {
-  pdf: [
-    "Advanced PDF processing support",
-    "Fast PDF conversion and editing",
-    "Preserves document formatting",
+const toolFeatures = {
+  "image-resizer": [
+    "Resize JPG, PNG and WEBP images online",
+    "Custom image width and height settings",
+    "Maintain original aspect ratio automatically",
+    "Resize images by percentage or dimensions",
+    "High-quality image resizing technology",
+    "Instant browser-based image processing",
+    "No software installation required",
+    "Secure and private image handling",
   ],
 
-  image: [
-    "Supports popular image formats",
-    "Optimized image processing",
-    "Smooth and responsive workflow",
+  "image-compressor": [
+    "Compress JPG, PNG and WEBP images",
+    "Reduce image file size instantly",
+    "Maintain image quality during compression",
+    "Fast browser-based image optimization",
+    "Supports multiple image formats",
+    "No registration required",
+    "Secure image processing",
+    "Free online image compression",
   ],
 
-  compressor: [
-    "Reduce file size instantly",
-    "Optimized compression technology",
-    "Maintain quality while compressing",
+  "pdf-to-word": [
+    "Convert PDF files into editable Word documents",
+    "Preserve document formatting and layout",
+    "Fast PDF to DOCX conversion",
+    "Supports business and personal documents",
+    "Easy drag and drop workflow",
+    "Secure file processing",
+    "No software installation required",
+    "Free online PDF conversion",
   ],
 
-  converter: [
-    "Convert files within seconds",
-    "Supports multiple file formats",
-    "Simple drag-and-drop workflow",
+  "word-to-pdf": [
+    "Convert DOC and DOCX files to PDF",
+    "Maintain fonts and document formatting",
+    "Fast Word to PDF conversion",
+    "High-quality PDF output",
+    "Supports Microsoft Word documents",
+    "Secure browser-based processing",
+    "Easy file uploads",
+    "Free online conversion",
   ],
 
-  merger: [
-    "Combine multiple files into one",
-    "Easy document organization",
-    "Quick file merging process",
-  ],
-
-  splitter: [
-    "Split files into smaller sections",
-    "Extract selected pages easily",
-    "Flexible file separation",
-  ],
-
-  formatter: [
-    "Beautify and organize code",
-    "Improves readability instantly",
-    "Clean structured formatting",
-  ],
-
-  validator: [
-    "Detect syntax and formatting errors",
-    "Instant validation results",
-    "Helpful for debugging workflows",
-  ],
-
-  minifier: [
-    "Reduce code size efficiently",
-    "Improve website loading speed",
-    "Optimize frontend performance",
-  ],
-
-  encoder: [
-    "Safe and reliable encoding",
-    "Supports developer workflows",
-    "Fast browser-based encoding",
-  ],
-
-  decoder: [
-    "Instant content decoding",
-    "Readable and accurate output",
-    "Easy encoded data conversion",
-  ],
-
-  qr: [
-    "Generate QR codes instantly",
-    "Download QR codes easily",
-    "Supports links and text",
-  ],
-
-  password: [
-    "Generate strong secure passwords",
-    "Custom password generation",
-    "Improved account protection",
-  ],
-
-  counter: [
-    "Count words and characters instantly",
-    "SEO-friendly text analysis",
-    "Real-time counting updates",
-  ],
-
-  url: [
-    "Safe URL encoding and decoding",
-    "Supports web-safe formatting",
-    "Useful for developers and SEO",
-  ],
+  "jpg-to-pdf": [],
+  "pdf-merger": [],
+  "pdf-splitter": [],
+  "pdf-to-jpg": [],
+  "image-converter": [],
+  "image-cropper": [],
+  "png-to-jpg": [],
+  "jpg-to-png": [],
+  "qr-code-generator": [],
+  "password-generator": [],
+  "word-counter": [],
+  "json-formatter": [],
+  "json-validator": [],
+  "base64-encoder": [],
+  "base64-decoder": [],
+  "html-minifier": [],
+  "css-minifier": [],
+  "js-minifier": [],
+  "url-encoder": [],
+  "url-decoder": [],
 };
 
 export default function Features() {
   const { slug } = useParams();
 
-  // ✅ handle slug safely
-  const currentSlug = Array.isArray(slug) ? slug[0] : slug;
+  const currentSlug = Array.isArray(slug)
+    ? slug[0]
+    : slug;
 
-  // ✅ auto-detect matching features
-  let autoFeatures = [];
-
-  Object.keys(dynamicFeatures).forEach((key) => {
-    if (currentSlug?.includes(key)) {
-      autoFeatures.push(...dynamicFeatures[key]);
-    }
-  });
-
-  // ✅ merge + remove duplicates
-  const items = [...new Set([...autoFeatures, ...commonFeatures])];
+  const items =
+    toolFeatures[currentSlug] || [];
 
   if (!items.length) return null;
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>✨ Features</h2>
+      <h2 className={styles.title}>
+        Features
+      </h2>
 
       <div className={styles.grid}>
         {items.map((item, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08, duration: 0.4 }}
-            whileHover={{ scale: 1.05 }}
+            initial={{
+              opacity: 0,
+              y: 40,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: i * 0.08,
+              duration: 0.4,
+            }}
+            whileHover={{
+              scale: 1.05,
+            }}
             className={styles.card}
           >
             <div className={styles.glow}></div>
