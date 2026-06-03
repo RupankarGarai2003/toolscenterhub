@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import styles from "../../components/Styles/tool-component/HowToUse.module.css";
+import getToolSlug from "@/utils/getToolSlug";
 
 import {
   Upload,
@@ -11,24 +12,24 @@ import {
 
 const toolSteps = {
   "image-resizer": [
-  {
-    title: "Upload Your Image",
-    desc: "Upload a JPG, PNG, or WEBP image from your device using the Image Resizer tool.",
-    icon: <Upload size={32} />,
-  },
+    {
+      title: "Upload Your Image",
+      desc: "Upload a JPG, PNG, or WEBP image from your device using the Image Resizer tool.",
+      icon: <Upload size={32} />,
+    },
 
-  {
-    title: "Choose Image Dimensions",
-    desc: "Set a custom width and height, maintain the aspect ratio, or use percentage-based resizing to adjust image dimensions.",
-    icon: <RefreshCw size={32} />,
-  },
+    {
+      title: "Choose Image Dimensions",
+      desc: "Set a custom width and height, maintain the aspect ratio, or use percentage-based resizing to adjust image dimensions.",
+      icon: <RefreshCw size={32} />,
+    },
 
-  {
-    title: "Download the Resized Image",
-    desc: "Preview the result and download your resized image instantly in JPG, PNG, or WEBP format.",
-    icon: <Download size={32} />,
-  },
-],
+    {
+      title: "Download the Resized Image",
+      desc: "Preview the result and download your resized image instantly in JPG, PNG, or WEBP format.",
+      icon: <Download size={32} />,
+    },
+  ],
 
   "image-compressor": [
     {
@@ -96,9 +97,12 @@ const toolSteps = {
 export default function HowToUse() {
   const { slug } = useParams();
 
-  const currentSlug = Array.isArray(slug)
+  const rawSlug = Array.isArray(slug)
     ? slug[0]
     : slug;
+
+  const currentSlug =
+    getToolSlug(rawSlug);
 
   const steps =
     toolSteps[currentSlug] || [];

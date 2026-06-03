@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import styles from "../../components/Styles/tool-component/About.module.css";
+import getToolSlug from "@/utils/getToolSlug";
 
 const aboutContent = {
   "image-resizer": {
@@ -184,9 +185,17 @@ const aboutContent = {
 export default function About() {
   const { slug } = useParams();
 
-  const tool = aboutContent[slug];
+  const rawSlug = Array.isArray(slug)
+    ? slug[0]
+    : slug;
 
+  const currentSlug =
+    getToolSlug(rawSlug);
+
+  const tool =
+    aboutContent[currentSlug];
   if (!tool) return null;
+
 
   return (
     <div className={styles.container}>

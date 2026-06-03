@@ -1,12 +1,13 @@
+import type { MetadataRoute } from "next";
 import { tools } from "@/lib/toolsList";
 
-export default function sitemap() {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://toolscenterhub.com";
 
   const toolRoutes = tools.map((tool) => ({
     url: `${baseUrl}/tools/${tool.slug}`,
     lastModified: new Date(),
-    changeFrequency: "weekly",
+    changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 

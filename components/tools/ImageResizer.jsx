@@ -21,6 +21,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function ImageResizer() {
   const [preview, setPreview] =
@@ -981,6 +982,7 @@ export default function ImageResizer() {
 
       {/* CONTENT */}
       <div className="contentWrapper">
+        <RelatedTools/>
         <About />
         <HowToUse />
         <Features />

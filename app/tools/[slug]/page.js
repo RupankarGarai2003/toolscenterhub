@@ -128,7 +128,7 @@ export default async function Page({
 
   const Component =
     ToolComponents[
-      toolData.component
+    toolData.component
     ];
 
   if (!Component) {
@@ -239,6 +239,7 @@ export default async function Page({
             ? { limit }
             : {})}
         />
+      
       </div>
     </>
   );

@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import styles from "../../components/Styles/tool-component/Features.module.css";
+import getToolSlug from "@/utils/getToolSlug";
 
 const toolFeatures = {
   "image-resizer": [
@@ -74,9 +75,12 @@ const toolFeatures = {
 export default function Features() {
   const { slug } = useParams();
 
-  const currentSlug = Array.isArray(slug)
-    ? slug[0]
-    : slug;
+  const rawSlug = Array.isArray(slug)
+  ? slug[0]
+  : slug;
+
+const currentSlug =
+  getToolSlug(rawSlug);
 
   const items =
     toolFeatures[currentSlug] || [];

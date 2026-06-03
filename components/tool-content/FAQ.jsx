@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "../../components/Styles/tool-component/FAQ.module.css";
+import getToolSlug from "@/utils/getToolSlug";
 
 /* COMMON FAQs */
 const commonFAQ = [
@@ -226,9 +227,13 @@ export default function FAQ() {
 
   const [open, setOpen] = useState(null);
 
-  const currentSlug = Array.isArray(slug)
+  const rawSlug = Array.isArray(slug)
     ? slug[0]
     : slug;
+
+  const currentSlug =
+    getToolSlug(rawSlug);
+
 
   const faqs = [
     ...(toolFAQs[currentSlug] || []),
@@ -247,11 +252,10 @@ export default function FAQ() {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className={`${styles.item} ${
-              open === index
+            className={`${styles.item} ${open === index
                 ? styles.active
                 : ""
-            }`}
+              }`}
             onClick={() =>
               setOpen(
                 open === index

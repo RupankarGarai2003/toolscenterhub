@@ -13,100 +13,128 @@ import {
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-100 px-6 py-20">
-
-      {/* 🔵 Animated Background Blobs */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-100 px-6 py-20">
       {/* HERO */}
-      <section className="relative max-w-5xl mx-auto text-center">
+      <section className="max-w-5xl mx-auto text-center">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-6xl font-extrabold text-gray-900"
         >
-          About ToolsCenterHub 🚀
+          About ToolsCenterHub
         </motion.h1>
 
         <p className="text-gray-600 mt-6 text-lg md:text-xl">
-          Powerful tools. Zero friction. Built for everyone.
+          Free Online Tools for Images, PDFs, Developers & Productivity
         </p>
       </section>
 
-      {/* DESCRIPTION */}
-      <section className="max-w-3xl mx-auto mt-14 text-center">
-        <p className="text-gray-700 leading-relaxed text-lg">
-          ToolsCenterHub provides free online tools for images, PDFs, and developers.
-          No installs, no signups — just fast and secure tools that work instantly.
+      {/* ABOUT */}
+      <section className="max-w-4xl mx-auto mt-16">
+        <p className="text-lg leading-8 text-gray-700">
+          ToolsCenterHub is a free online platform that provides
+          powerful tools for image editing, PDF management,
+          developer workflows, and everyday productivity tasks.
+          Our mission is to help users complete common digital
+          tasks quickly, securely, and without installing software.
+        </p>
+
+        <p className="text-lg leading-8 text-gray-700 mt-6">
+          Whether you need to resize images, compress files,
+          convert PDFs, merge documents, generate QR codes,
+          create strong passwords, format JSON, or perform
+          other online tasks, ToolsCenterHub offers simple
+          browser-based solutions that work instantly.
+        </p>
+
+        <p className="text-lg leading-8 text-gray-700 mt-6">
+          We focus on speed, simplicity, and privacy.
+          Our tools are designed to work across desktop,
+          tablet, and mobile devices, helping users save
+          time without unnecessary complexity.
         </p>
       </section>
 
-      {/* FEATURES */}
-      <section className="max-w-6xl mx-auto mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {features.map((f, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.05 }}
-            className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-md hover:shadow-xl text-center"
-          >
-            <f.icon className="mx-auto text-indigo-600 mb-3" size={32} />
-            <h3 className="font-semibold text-lg">{f.title}</h3>
-            <p className="text-sm text-gray-600 mt-2">{f.desc}</p>
-          </motion.div>
-        ))}
-      </section>
-
-      {/* STATS */}
-      <section className="max-w-5xl mx-auto mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        {stats.map((s, i) => (
-          <div key={i}>
-            <h3 className="text-3xl font-bold text-indigo-600">{s.value}</h3>
-            <p className="text-gray-600 text-sm">{s.label}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* TOOL CATEGORIES */}
+      {/* WHY CHOOSE US */}
       <section className="max-w-6xl mx-auto mt-24">
         <h2 className="text-3xl font-bold text-center text-gray-900">
-          Explore Categories
+          Why Choose ToolsCenterHub?
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-10">
-          {categories.map((c, i) => (
-            <div
-              key={i}
-              className="p-6 rounded-2xl bg-white shadow hover:shadow-lg text-center"
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
+          {features.map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white p-6 rounded-2xl shadow-md text-center"
             >
-              <c.icon className="mx-auto text-purple-600 mb-3" size={30} />
-              <h3 className="font-semibold">{c.title}</h3>
-              <p className="text-sm text-gray-500 mt-2">{c.desc}</p>
+              <item.icon
+                size={32}
+                className="mx-auto text-indigo-600 mb-4"
+              />
+
+              <h3 className="font-semibold text-lg">
+                {item.title}
+              </h3>
+
+              <p className="text-gray-600 mt-3">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="max-w-6xl mx-auto mt-24">
+        <h2 className="text-3xl font-bold text-center text-gray-900">
+          Explore Our Tool Categories
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
+          {categories.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-2xl shadow-md text-center"
+            >
+              <item.icon
+                size={30}
+                className="mx-auto text-purple-600 mb-4"
+              />
+
+              <h3 className="font-semibold text-lg">
+                {item.title}
+              </h3>
+
+              <p className="text-gray-600 mt-3">
+                {item.desc}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="max-w-5xl mx-auto mt-24 text-center">
-        <h2 className="text-3xl font-bold text-gray-900">
-          What Users Say
+      {/* MISSION */}
+      <section className="max-w-4xl mx-auto mt-24">
+        <h2 className="text-3xl font-bold text-center text-gray-900">
+          Our Mission
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-10">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-white p-6 rounded-2xl shadow text-left"
-            >
-              <p className="text-gray-600">"{t.text}"</p>
-              <h4 className="mt-4 font-semibold text-gray-900">
-                — {t.name}
-              </h4>
-            </div>
-          ))}
-        </div>
+        <p className="text-lg leading-8 text-gray-700 mt-8">
+          We believe online tools should be accessible,
+          fast, and easy to use. ToolsCenterHub was
+          created to provide free utilities that help
+          students, developers, businesses, content
+          creators, and everyday users complete tasks
+          efficiently without downloading software or
+          creating accounts.
+        </p>
+
+        <p className="text-lg leading-8 text-gray-700 mt-6">
+          We continuously improve our platform by adding
+          new tools, improving performance, and creating
+          a better experience for our users.
+        </p>
       </section>
 
       {/* CTA */}
@@ -121,69 +149,45 @@ export default function AboutPage() {
         </motion.a>
 
         <p className="text-gray-500 mt-4 text-sm">
-          100% free • No signup required
+          Free • Fast • No Signup Required
         </p>
       </section>
     </div>
   );
 }
 
-/* DATA */
-
 const features = [
   {
     icon: Zap,
-    title: "Blazing Fast",
-    desc: "Tools run instantly in your browser.",
+    title: "Fast Processing",
+    desc: "Use tools instantly without downloads or complex setup.",
   },
   {
     icon: ShieldCheck,
-    title: "Secure",
-    desc: "Your data is never stored.",
+    title: "Privacy Focused",
+    desc: "We prioritize secure processing and user privacy.",
   },
   {
     icon: Sparkles,
-    title: "Easy to Use",
-    desc: "Simple and clean interface.",
+    title: "Simple Experience",
+    desc: "Clean and easy-to-use tools for everyone.",
   },
-];
-
-const stats = [
-  { value: "50+", label: "Tools" },
-  { value: "10K+", label: "Users" },
-  { value: "100%", label: "Free" },
-  { value: "0", label: "Signups" },
 ];
 
 const categories = [
   {
     icon: Image,
     title: "Image Tools",
-    desc: "Compress, resize, convert images easily.",
+    desc: "Resize, compress, crop, and convert images online.",
   },
   {
     icon: FileText,
     title: "PDF Tools",
-    desc: "Merge, split, and edit PDFs.",
+    desc: "Convert, merge, split, and manage PDF documents.",
   },
   {
     icon: Code,
     title: "Developer Tools",
-    desc: "JSON, Base64, formatting utilities.",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Amit",
-    text: "Super fast tools, no ads. Love it!",
-  },
-  {
-    name: "Sara",
-    text: "Best free tool site I’ve used.",
-  },
-  {
-    name: "John",
-    text: "Clean UI and works perfectly.",
+    desc: "JSON formatting, Base64 utilities, code minifiers and more.",
   },
 ];
