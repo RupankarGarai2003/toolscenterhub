@@ -1,91 +1,282 @@
-"use client";
+import styles from "./PrivacyPolicy.module.css";
+import {
+  ShieldCheck,
+  Lock,
+  Database,
+  Cookie,
+  Globe,
+  FileText,
+  Scale,
+  RefreshCw,
+  Mail,
+} from "lucide-react";
 
-import { ShieldCheck, FileDown } from "lucide-react";
+export const metadata = {
+  title:
+    "Privacy Policy | Tools Center Hub",
 
-export default function PolicyPage() {
-  const downloadPDF = () => {
-    window.print(); // allows user to save as PDF
-  };
+  description:
+    "Read the Privacy Policy of Tools Center Hub. Learn how we collect, use, and protect user information while using our online tools.",
 
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical:
+      "https://toolscenterhub.com/privacy-policy",
+  },
+};
+
+export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-100 px-6 py-20">
+    <div className={styles.page}>
+      {/* HERO */}
+      <section className={styles.hero}>
+        <ShieldCheck
+          size={48}
+          className={styles.heroIcon}
+        />
 
-      {/* HEADER */}
-      <section className="max-w-4xl mx-auto text-center">
-        <ShieldCheck className="mx-auto text-indigo-600 mb-4" size={42} />
-
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-          Privacy Policy 🔒
+        <h1 className={styles.heroTitle}>
+          Privacy Policy
         </h1>
 
-        <p className="text-gray-600 mt-4 text-lg">
-          Your privacy is important to us.
+        <p className={styles.heroSubtitle}>
+          Effective Date: July 2025
         </p>
 
-        <button
-          onClick={downloadPDF}
-          className="mt-6 inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
-        >
-          <FileDown size={16} />
-          Download as PDF
-        </button>
+        <p className={styles.heroDescription}>
+          Your privacy is important to
+          us. This Privacy Policy
+          explains how ToolsCenterHub
+          collects, uses, and protects
+          information when you use our
+          website and online tools.
+        </p>
       </section>
 
       {/* CONTENT */}
-      <section className="max-w-4xl mx-auto mt-12 bg-white/70 backdrop-blur-lg p-8 md:p-10 rounded-2xl shadow-md border border-white/40 space-y-8">
+      <section className={styles.content}>
+        <PolicySection
+          icon={
+            <FileText size={24} />
+          }
+          title="Overview"
+        >
+          ToolsCenterHub ("we",
+          "our", or "us") is committed
+          to protecting your privacy.
+          Most of our online tools are
+          designed to work directly in
+          your browser without
+          permanently storing files or
+          personal information.
+        </PolicySection>
 
-        <Section title="Overview">
-          ToolsCenterHub is committed to protecting your privacy. Our tools are designed to work directly in your browser without storing your data.
-        </Section>
+        <PolicySection
+          icon={
+            <Database size={24} />
+          }
+          title="Information We Collect"
+        >
+          While using our website, we
+          may collect limited
+          information such as browser
+          type, device information,
+          pages visited, referral
+          sources, and anonymous usage
+          statistics. We do not
+          intentionally collect
+          sensitive personal data
+          through our tools.
+        </PolicySection>
 
-        <Section title="Data Collection">
-          We do <span className="font-medium text-indigo-600">not collect, store, or share</span> your files or personal data. Everything is processed locally on your device.
-        </Section>
+        <PolicySection
+          icon={
+            <Globe size={24} />
+          }
+          title="How We Use Information"
+        >
+          Information may be used to
+          improve website performance,
+          understand user behavior,
+          enhance user experience,
+          identify technical issues,
+          and develop new features and
+          tools.
+        </PolicySection>
 
-        <Section title="Cookies">
-          We may use minimal cookies for analytics and improving user experience. These cookies do not store personal or sensitive information.
-        </Section>
+        <PolicySection
+          icon={
+            <Cookie size={24} />
+          }
+          title="Cookies"
+        >
+          ToolsCenterHub may use
+          cookies and similar
+          technologies to improve
+          functionality, remember user
+          preferences, and analyze
+          website traffic. You can
+          disable cookies through your
+          browser settings if desired.
+        </PolicySection>
 
-        <Section title="Security">
-          Your files never leave your device. We prioritize security by ensuring that all processing happens locally whenever possible.
-        </Section>
+        <PolicySection
+          icon={<Globe size={24} />}
+          title="Google Analytics"
+        >
+          We may use Google Analytics
+          to understand how visitors
+          interact with our website.
+          Google Analytics may collect
+          anonymous information such
+          as browser type, device
+          type, location region,
+          session duration, and pages
+          viewed.
+        </PolicySection>
 
-        <Section title="GDPR Compliance">
-          We follow GDPR principles. Since we do not store personal data, your information remains private and under your control at all times.
-        </Section>
+        <PolicySection
+          icon={
+            <FileText size={24} />
+          }
+          title="Advertising Services"
+        >
+          In the future,
+          ToolsCenterHub may display
+          advertisements through
+          Google AdSense or other
+          advertising providers.
+          These services may use
+          cookies to personalize ads
+          and measure advertising
+          performance.
+        </PolicySection>
 
-        <Section title="Third-Party Services">
-          Some features may use trusted third-party services such as analytics providers. These services operate under their own privacy policies.
-        </Section>
+        <PolicySection
+          icon={<Lock size={24} />}
+          title="Data Security"
+        >
+          We take reasonable security
+          measures to protect user
+          information and maintain the
+          integrity of our services.
+          However, no method of online
+          transmission or storage can
+          be guaranteed as completely
+          secure.
+        </PolicySection>
 
-        <Section title="Policy Updates">
-          This Privacy Policy may be updated from time to time. Any changes will be reflected on this page.
-        </Section>
+        <PolicySection
+          icon={
+            <ShieldCheck size={24} />
+          }
+          title="Third-Party Services"
+        >
+          We may use trusted
+          third-party providers for
+          analytics, performance
+          monitoring, security,
+          content delivery, and other
+          operational purposes. These
+          providers operate under
+          their own privacy policies.
+        </PolicySection>
 
-        <Section title="Contact">
-          If you have any questions or concerns about this Privacy Policy, feel free to contact us.
-        </Section>
+        <PolicySection
+          icon={<Scale size={24} />}
+          title="GDPR Rights"
+        >
+          Users located in the
+          European Economic Area
+          (EEA) may have rights to
+          access, correct, delete, or
+          restrict processing of
+          personal information in
+          accordance with applicable
+          data protection laws.
+        </PolicySection>
 
+        <PolicySection
+          icon={<Scale size={24} />}
+          title="CCPA Rights"
+        >
+          California residents may
+          have rights under the
+          California Consumer Privacy
+          Act (CCPA), including the
+          right to know what
+          information is collected and
+          the right to request
+          deletion of personal data.
+        </PolicySection>
+
+        <PolicySection
+          icon={
+            <ShieldCheck size={24} />
+          }
+          title="Children's Privacy"
+        >
+          ToolsCenterHub is not
+          directed toward children
+          under 13 years of age. We do
+          not knowingly collect
+          personal information from
+          children.
+        </PolicySection>
+
+        <PolicySection
+          icon={
+            <RefreshCw size={24} />
+          }
+          title="Changes To This Policy"
+        >
+          We may update this Privacy
+          Policy from time to time.
+          Any changes will be posted
+          on this page with an updated
+          effective date.
+        </PolicySection>
+
+        <PolicySection
+          icon={<Mail size={24} />}
+          title="Contact Us"
+        >
+          If you have any questions
+          regarding this Privacy
+          Policy, please contact us
+          through our Contact Us page.
+        </PolicySection>
       </section>
 
       {/* FOOTER */}
-      <div className="text-center mt-10 text-sm text-gray-500">
-        © {new Date().getFullYear()} ToolsCenterHub. All rights reserved.
+      <div className={styles.footer}>
+        © {new Date().getFullYear()}
+        {" "}
+        ToolsCenterHub. All Rights
+        Reserved.
       </div>
     </div>
   );
 }
 
-/* REUSABLE SECTION COMPONENT */
-function Section({ title, children }) {
+function PolicySection({
+  icon,
+  title,
+  children,
+}) {
   return (
-    <div>
-      <h2 className="text-xl font-semibold text-gray-900">
-        {title}
-      </h2>
-      <p className="text-gray-600 mt-2 leading-relaxed">
-        {children}
-      </p>
+    <div className={styles.section}>
+      <div className={styles.heading}>
+        {icon}
+
+        <h2>{title}</h2>
+      </div>
+
+      <p>{children}</p>
     </div>
   );
 }

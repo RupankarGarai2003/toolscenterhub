@@ -1,0 +1,248 @@
+.page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: #f8fafc;
+}
+
+/* HERO */
+
+.hero {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+/* SECTIONS */
+
+.section {
+  max-width: 1100px;
+  margin: 70px auto 0;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 24px;
+}
+
+.paragraph {
+  max-width: 850px;
+  margin: 18px auto;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #475569;
+  text-align: center;
+}
+
+/* TITLE WITH ICON */
+
+.titleRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  color: #4f46e5;
+}
+
+/* FEATURE CARDS */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.featureCard {
+  background: white;
+
+  padding: 32px 24px;
+
+  border-radius: 20px;
+
+  text-align: center;
+
+  border: 1px solid #e2e8f0;
+
+  transition: all 0.25s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 15px 35px
+      rgba(0, 0, 0, 0.08);
+
+  border-color: #c7d2fe;
+}
+
+.featureCard h3 {
+  margin-top: 14px;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.featureCard p {
+  margin-top: 10px;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+/* POPULAR TOOLS */
+
+.toolGrid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(260px, 1fr)
+  );
+
+  gap: 24px;
+
+  margin-top: 40px;
+}
+
+.toolCard {
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  text-decoration: none;
+
+  border: 1px solid #e2e8f0;
+
+  transition: all 0.25s ease;
+}
+
+.toolCard:hover {
+  transform: translateY(-6px);
+
+  border-color: #c7d2fe;
+
+  box-shadow:
+    0 15px 35px
+      rgba(0, 0, 0, 0.08);
+}
+
+.toolCard h3 {
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.toolCard p {
+  margin-top: 10px;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+/* CTA */
+
+.cta {
+  margin-top: 90px;
+  text-align: center;
+}
+
+.ctaBtn {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 10px;
+
+  padding: 16px 32px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #9333ea
+  );
+
+  color: white;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-3px);
+}
+
+.ctaText {
+  margin-top: 15px;
+
+  color: #64748b;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .section {
+    margin-top: 50px;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .paragraph {
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .titleRow {
+    flex-direction: row;
+  }
+
+  .cardGrid,
+  .toolGrid {
+    grid-template-columns: 1fr;
+  }
+}
