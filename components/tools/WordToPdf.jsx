@@ -19,6 +19,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function WordToPDF() {
   const [file, setFile] =
@@ -276,10 +277,10 @@ export default function WordToPDF() {
 
   return (
     <>
-    <div className="max-w-md mx-auto space-y-6">
+      <div className="max-w-md mx-auto space-y-6">
 
-      {/* DOCX GLOBAL CSS */}
-      <style jsx global>{`
+        {/* DOCX GLOBAL CSS */}
+        <style jsx global>{`
         .docx-wrapper {
           background: #f5f5f5 !important;
           padding: 20px !important;
@@ -297,13 +298,13 @@ export default function WordToPDF() {
         }
       `}</style>
 
-      {/* UPLOADER */}
-      <ImageUploader
-        preview={null}
-        type="document"
-        fileData={
-          file
-            ? {
+        {/* UPLOADER */}
+        <ImageUploader
+          preview={null}
+          type="document"
+          fileData={
+            file
+              ? {
                 name: file.name,
 
                 size:
@@ -313,103 +314,104 @@ export default function WordToPDF() {
                   ).toFixed(1) +
                   " KB",
               }
-            : null
-        }
-        onChange={handleChange}
-        onDrop={handleDrop}
-        onDragOver={
-          handleDragOver
-        }
-        onRemove={
-          handleRemove
-        }
-      />
+              : null
+          }
+          onChange={handleChange}
+          onDrop={handleDrop}
+          onDragOver={
+            handleDragOver
+          }
+          onRemove={
+            handleRemove
+          }
+        />
 
-      {/* LOADING */}
-      {loading && (
-        <div className="bg-white rounded-3xl p-8 text-center shadow">
+        {/* LOADING */}
+        {loading && (
+          <div className="bg-white rounded-3xl p-8 text-center shadow">
 
-          <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
+            <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
 
-          <p className="font-semibold">
-            Processing DOCX...
-          </p>
-
-        </div>
-      )}
-
-      {/* READY */}
-      {ready && !loading && (
-        <div className="bg-white rounded-3xl p-6 shadow space-y-5">
-
-          {/* HEADER */}
-          <div className="text-center">
-
-            <div className="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
-
-              <FileText className="w-8 h-8" />
-
-            </div>
-
-            <h2 className="text-xl font-black">
-              Ready to Download
-            </h2>
-
-            <p className="text-sm text-gray-500 mt-1">
-              Preserves original Word
-              layout with headers &
-              footers
+            <p className="font-semibold">
+              Processing DOCX...
             </p>
 
           </div>
+        )}
 
-          {/* SUCCESS */}
-          {success && (
-            <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-600 font-semibold flex items-center justify-center gap-2">
+        {/* READY */}
+        {ready && !loading && (
+          <div className="bg-white rounded-3xl p-6 shadow space-y-5">
 
-              <CheckCircle2 className="w-5 h-5" />
+            {/* HEADER */}
+            <div className="text-center">
 
-              PDF Generated
+              <div className="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
+
+                <FileText className="w-8 h-8" />
+
+              </div>
+
+              <h2 className="text-xl font-black">
+                Ready to Download
+              </h2>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Preserves original Word
+                layout with headers &
+                footers
+              </p>
 
             </div>
-          )}
 
-          {/* ACTIONS */}
-          <div className="flex gap-4">
+            {/* SUCCESS */}
+            {success && (
+              <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-600 font-semibold flex items-center justify-center gap-2">
 
-            <button
-              onClick={
-                handleRemove
-              }
-              className="w-full h-12 rounded-2xl border font-semibold flex items-center justify-center gap-2"
-            >
+                <CheckCircle2 className="w-5 h-5" />
 
-              <RotateCcw className="w-4 h-4" />
+                PDF Generated
 
-              Reset
+              </div>
+            )}
 
-            </button>
+            {/* ACTIONS */}
+            <div className="flex gap-4">
 
-            <button
-              onClick={
-                handleDownload
-              }
-              className="w-full h-12 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2"
-            >
+              <button
+                onClick={
+                  handleRemove
+                }
+                className="w-full h-12 rounded-2xl border font-semibold flex items-center justify-center gap-2"
+              >
 
-              <Download className="w-4 h-4" />
+                <RotateCcw className="w-4 h-4" />
 
-              Download PDF
+                Reset
 
-            </button>
+              </button>
+
+              <button
+                onClick={
+                  handleDownload
+                }
+                className="w-full h-12 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2"
+              >
+
+                <Download className="w-4 h-4" />
+
+                Download PDF
+
+              </button>
+
+            </div>
 
           </div>
+        )}
 
-        </div>
-      )}
-
-    </div>
-          <div className="contentWrapper">
+      </div>
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

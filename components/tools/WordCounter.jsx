@@ -19,6 +19,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function WordCounter() {
   const [text, setText] = useState("");
@@ -272,6 +273,7 @@ export default function WordCounter() {
 
         {/* TOOL CONTENT */}
         <div className="contentWrapper">
+          <RelatedTools />
           <About />
           <HowToUse />
           <Features />

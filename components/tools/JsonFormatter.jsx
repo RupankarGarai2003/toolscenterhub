@@ -18,6 +18,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function JSONFormatter() {
   const [input, setInput] = useState("");
@@ -105,60 +106,60 @@ export default function JSONFormatter() {
 
   return (
     <>
-    <div className="bg-white py-4 px-3">
-      <div className="max-w-6xl mx-auto">
+      <div className="bg-white py-4 px-3">
+        <div className="max-w-6xl mx-auto">
 
-        {/* CARD */}
-        <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm bg-white">
+          {/* CARD */}
+          <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm bg-white">
 
-          {/* TOPBAR */}
-          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-500">
+            {/* TOPBAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-500">
 
-            <div className="flex items-center gap-2 text-white">
-              <Braces className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-white">
+                <Braces className="w-4 h-4" />
 
-              <h2 className="text-sm font-semibold">
-                JSON Formatter
-              </h2>
+                <h2 className="text-sm font-semibold">
+                  JSON Formatter
+                </h2>
+              </div>
+
+              <div className="bg-white/20 text-white text-[10px] px-2 py-1 rounded-full">
+                Instant
+              </div>
             </div>
 
-            <div className="bg-white/20 text-white text-[10px] px-2 py-1 rounded-full">
-              Instant
-            </div>
-          </div>
+            {/* CONTENT */}
+            <div className="p-4 pb-3">
 
-          {/* CONTENT */}
-          <div className="p-4 pb-3">
+              {/* EDITORS */}
+              <div className="grid lg:grid-cols-2 gap-3">
 
-            {/* EDITORS */}
-            <div className="grid lg:grid-cols-2 gap-3">
+                {/* INPUT */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
 
-              {/* INPUT */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
+                    <label className="text-xs font-medium text-gray-700">
+                      Input JSON
+                    </label>
 
-                  <label className="text-xs font-medium text-gray-700">
-                    Input JSON
-                  </label>
+                    <span className="text-[11px] text-gray-400">
+                      Paste JSON
+                    </span>
+                  </div>
 
-                  <span className="text-[11px] text-gray-400">
-                    Paste JSON
-                  </span>
-                </div>
-
-                <textarea
-                  value={input}
-                  onChange={(e) =>
-                    setInput(
-                      e.target.value
-                    )
-                  }
-                  spellCheck={false}
-                  placeholder={`{
+                  <textarea
+                    value={input}
+                    onChange={(e) =>
+                      setInput(
+                        e.target.value
+                      )
+                    }
+                    spellCheck={false}
+                    placeholder={`{
   "name": "John",
   "age": 25
 }`}
-                  className="
+                    className="
                     w-full h-[320px]
                     rounded-xl
                     border border-gray-200
@@ -175,27 +176,27 @@ export default function JSONFormatter() {
                     focus:ring-2
                     focus:ring-blue-100
                   "
-                />
-              </div>
-
-              {/* OUTPUT */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-
-                  <label className="text-xs font-medium text-gray-700">
-                    Output JSON
-                  </label>
-
-                  <span className="text-[11px] text-gray-400">
-                    Result
-                  </span>
+                  />
                 </div>
 
-                <textarea
-                  value={output}
-                  readOnly
-                  placeholder="Formatted JSON will appear here..."
-                  className="
+                {/* OUTPUT */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+
+                    <label className="text-xs font-medium text-gray-700">
+                      Output JSON
+                    </label>
+
+                    <span className="text-[11px] text-gray-400">
+                      Result
+                    </span>
+                  </div>
+
+                  <textarea
+                    value={output}
+                    readOnly
+                    placeholder="Formatted JSON will appear here..."
+                    className="
                     w-full h-[320px]
                     rounded-xl
                     border border-gray-200
@@ -208,69 +209,69 @@ export default function JSONFormatter() {
                     resize-none
                     outline-none
                   "
+                  />
+                </div>
+              </div>
+
+              {/* ERROR */}
+              {error && (
+                <div className="mt-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-xl px-3 py-2">
+                  {error}
+                </div>
+              )}
+
+              {/* BUTTONS */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mt--1">
+
+                <ActionButton
+                  onClick={formatJSON}
+                  icon={
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  }
+                  label="Format"
+                  gradient="from-blue-600 to-cyan-500"
                 />
-              </div>
-            </div>
 
-            {/* ERROR */}
-            {error && (
-              <div className="mt-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-xl px-3 py-2">
-                {error}
-              </div>
-            )}
+                <ActionButton
+                  onClick={minifyJSON}
+                  icon={
+                    <Minimize2 className="w-3.5 h-3.5" />
+                  }
+                  label="Minify"
+                  gradient="from-orange-500 to-red-500"
+                />
 
-            {/* BUTTONS */}
-           <div className="flex flex-wrap items-center justify-center gap-2 mt--1">
+                <ActionButton
+                  onClick={
+                    copyToClipboard
+                  }
+                  icon={
+                    copied ? (
+                      <Check className="w-3.5 h-3.5" />
+                    ) : (
+                      <Clipboard className="w-3.5 h-3.5" />
+                    )
+                  }
+                  label={
+                    copied
+                      ? "Copied"
+                      : "Copy"
+                  }
+                  gradient="from-emerald-500 to-green-500"
+                />
 
-              <ActionButton
-                onClick={formatJSON}
-                icon={
-                  <Maximize2 className="w-3.5 h-3.5" />
-                }
-                label="Format"
-                gradient="from-blue-600 to-cyan-500"
-              />
+                <ActionButton
+                  onClick={downloadJSON}
+                  icon={
+                    <Download className="w-3.5 h-3.5" />
+                  }
+                  label="Download"
+                  gradient="from-violet-500 to-purple-600"
+                />
 
-              <ActionButton
-                onClick={minifyJSON}
-                icon={
-                  <Minimize2 className="w-3.5 h-3.5" />
-                }
-                label="Minify"
-                gradient="from-orange-500 to-red-500"
-              />
-
-              <ActionButton
-                onClick={
-                  copyToClipboard
-                }
-                icon={
-                  copied ? (
-                    <Check className="w-3.5 h-3.5" />
-                  ) : (
-                    <Clipboard className="w-3.5 h-3.5" />
-                  )
-                }
-                label={
-                  copied
-                    ? "Copied"
-                    : "Copy"
-                }
-                gradient="from-emerald-500 to-green-500"
-              />
-
-              <ActionButton
-                onClick={downloadJSON}
-                icon={
-                  <Download className="w-3.5 h-3.5" />
-                }
-                label="Download"
-                gradient="from-violet-500 to-purple-600"
-              />
-
-              <button
-                onClick={reset}
-                className="
+                <button
+                  onClick={reset}
+                  className="
                   flex items-center gap-2
                   px-4 py-2.5
                   rounded-xl
@@ -281,16 +282,17 @@ export default function JSONFormatter() {
                   hover:bg-gray-200
                   transition
                 "
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Reset
-              </button>
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-          <div className="contentWrapper">
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

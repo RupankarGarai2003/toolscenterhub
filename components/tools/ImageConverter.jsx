@@ -8,6 +8,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function ImageConverter() {
   const [preview, setPreview] = useState(null);
@@ -300,6 +301,7 @@ export default function ImageConverter() {
       </div>
 
       <div className="contentWrapper">
+        <RelatedTools/>
         <About />
         <HowToUse />
         <Features />

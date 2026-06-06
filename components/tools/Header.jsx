@@ -148,6 +148,8 @@ export default function Header() {
               <Link href="/privacy-policy">Policy</Link>
               <Link href="/contact-us">Contact</Link>
               <Link href="/help">Help</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/disclaimer">Disclaimer</Link>
 
             </div>
           )}

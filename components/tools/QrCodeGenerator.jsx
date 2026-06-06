@@ -27,6 +27,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function AdvancedQRCodeGenerator() {
   const qrRef = useRef(null);
@@ -252,11 +253,10 @@ export default function AdvancedQRCodeGenerator() {
                             text-xs sm:text-sm
                             font-medium
                             transition
-                            ${
-                              type ===
+                            ${type ===
                               item.value
-                                ? "bg-indigo-600 text-white shadow-md"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                              ? "bg-indigo-600 text-white shadow-md"
+                              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                             }
                           `}
                         >
@@ -428,10 +428,9 @@ export default function AdvancedQRCodeGenerator() {
                       }
                       className={`
                         relative w-11 h-6 rounded-full transition
-                        ${
-                          includeMargin
-                            ? "bg-indigo-600"
-                            : "bg-slate-300"
+                        ${includeMargin
+                          ? "bg-indigo-600"
+                          : "bg-slate-300"
                         }
                       `}
                     >
@@ -439,10 +438,9 @@ export default function AdvancedQRCodeGenerator() {
                         className={`
                           absolute top-1 left-1
                           w-4 h-4 rounded-full bg-white transition
-                          ${
-                            includeMargin
-                              ? "translate-x-5"
-                              : ""
+                          ${includeMargin
+                            ? "translate-x-5"
+                            : ""
                           }
                         `}
                       />
@@ -577,8 +575,9 @@ export default function AdvancedQRCodeGenerator() {
           </div>
         </div>
       </div>
-       {/* TOOL CONTENT */}
+      {/* TOOL CONTENT */}
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

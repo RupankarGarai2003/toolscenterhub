@@ -17,6 +17,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 import {
   Download,
@@ -212,7 +213,7 @@ export default function PDFSplitter() {
   const handleDragOver = (e) =>
     e.preventDefault();
 
-  const handleDragLeave = () => {};
+  const handleDragLeave = () => { };
 
   /* RANGE CHANGE */
   const handleRangeChange = (e) => {
@@ -323,7 +324,7 @@ export default function PDFSplitter() {
           setProgress(
             ((i + 1) /
               pdf.getPageCount()) *
-              100
+            100
           );
         }
       }
@@ -470,114 +471,113 @@ export default function PDFSplitter() {
 
   return (
     <>
-    <div className="max-w-md mx-auto space-y-6 py-8">
+      <div className="max-w-md mx-auto space-y-6 py-8">
 
-      {/* UPLOADER */}
-      {!file && (
-        <ImageUploader
-          preview={null}
-          type="document"
-          fileData={null}
-          onChange={handleChange}
-          onDrop={handleDrop}
-          onDragOver={
-            handleDragOver
-          }
-          onDragLeave={
-            handleDragLeave
-          }
-          onRemove={() => {}}
-        />
-      )}
+        {/* UPLOADER */}
+        {!file && (
+          <ImageUploader
+            preview={null}
+            type="document"
+            fileData={null}
+            onChange={handleChange}
+            onDrop={handleDrop}
+            onDragOver={
+              handleDragOver
+            }
+            onDragLeave={
+              handleDragLeave
+            }
+            onRemove={() => { }}
+          />
+        )}
 
-      {/* FILE */}
-      {file && !results.length && (
-        <div className="space-y-5">
+        {/* FILE */}
+        {file && !results.length && (
+          <div className="space-y-5">
 
-          <div
-            className="
+            <div
+              className="
               flex items-center gap-3
               bg-gray-100
               rounded-2xl
               p-4
             "
-          >
+            >
 
-            <FileText className="text-blue-600" />
+              <FileText className="text-blue-600" />
 
-            <div>
-              <p className="font-semibold">
-                {file.name}
-              </p>
+              <div>
+                <p className="font-semibold">
+                  {file.name}
+                </p>
 
-              <p className="text-xs text-gray-500">
-                {formatBytes(
-                  file.size
-                )}{" "}
-                • {pageCount} pages
-              </p>
+                <p className="text-xs text-gray-500">
+                  {formatBytes(
+                    file.size
+                  )}{" "}
+                  • {pageCount} pages
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* MODES */}
-          <div className="grid grid-cols-2 gap-3">
+            {/* MODES */}
+            <div className="grid grid-cols-2 gap-3">
 
-            {[
-              {
-                key: "each",
-                label:
-                  "Each Page",
-              },
+              {[
+                {
+                  key: "each",
+                  label:
+                    "Each Page",
+                },
 
-              {
-                key: "ranges",
-                label:
-                  "Custom",
-              },
+                {
+                  key: "ranges",
+                  label:
+                    "Custom",
+                },
 
-              {
-                key: "odd",
-                label: "Odd",
-              },
+                {
+                  key: "odd",
+                  label: "Odd",
+                },
 
-              {
-                key: "even",
-                label: "Even",
-              },
-            ].map((m) => (
-              <button
-                key={m.key}
-                onClick={() =>
-                  setMode(m.key)
-                }
-                disabled={loading}
-                className={`
+                {
+                  key: "even",
+                  label: "Even",
+                },
+              ].map((m) => (
+                <button
+                  key={m.key}
+                  onClick={() =>
+                    setMode(m.key)
+                  }
+                  disabled={loading}
+                  className={`
                   h-11 rounded-2xl
                   border text-sm font-semibold
                   transition-all duration-300
-                  ${
-                    mode === m.key
+                  ${mode === m.key
                       ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20"
                       : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
-                  }
+                    }
                 `}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
 
-          {/* RANGE INPUT */}
-          {mode === "ranges" && (
-            <div>
+            {/* RANGE INPUT */}
+            {mode === "ranges" && (
+              <div>
 
-              <input
-                value={ranges}
-                onChange={
-                  handleRangeChange
-                }
-                placeholder="1-3,5"
-                className="
+                <input
+                  value={ranges}
+                  onChange={
+                    handleRangeChange
+                  }
+                  placeholder="1-3,5"
+                  className="
                   w-full
                   h-11
                   border border-gray-300
@@ -588,80 +588,80 @@ export default function PDFSplitter() {
                   focus:ring-2
                   focus:ring-blue-200
                 "
-              />
+                />
 
-              {rangeError && (
-                <div className="flex items-center gap-2 mt-2 text-red-500 text-xs">
+                {rangeError && (
+                  <div className="flex items-center gap-2 mt-2 text-red-500 text-xs">
 
-                  <XCircle className="w-3 h-3" />
+                    <XCircle className="w-3 h-3" />
 
-                  {rangeError}
-                </div>
-              )}
+                    {rangeError}
+                  </div>
+                )}
 
-              {parsedPages.length >
-                0 && (
-                <div className="flex flex-wrap gap-2 mt-3">
+                {parsedPages.length >
+                  0 && (
+                    <div className="flex flex-wrap gap-2 mt-3">
 
-                  {parsedPages.map(
-                    (p) => (
-                      <span
-                        key={p}
-                        className="
+                      {parsedPages.map(
+                        (p) => (
+                          <span
+                            key={p}
+                            className="
                             px-3 py-1 rounded-full
                             bg-blue-100 text-blue-700
                             text-xs font-semibold
                           "
-                      >
-                        {p}
-                      </span>
-                    )
+                          >
+                            {p}
+                          </span>
+                        )
+                      )}
+                    </div>
                   )}
-                </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* PROGRESS */}
-          {loading && (
-            <div>
+            {/* PROGRESS */}
+            {loading && (
+              <div>
 
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
 
-                <div
-                  className="
+                  <div
+                    className="
                     h-full
                     bg-gradient-to-r
                     from-blue-600
                     to-cyan-500
                     transition-all
                   "
-                  style={{
-                    width: `${progress}%`,
-                  }}
-                />
+                    style={{
+                      width: `${progress}%`,
+                    }}
+                  />
+                </div>
+
+                <p className="text-xs text-center mt-2 text-gray-500">
+                  {Math.round(
+                    progress
+                  )}
+                  %
+                </p>
               </div>
+            )}
 
-              <p className="text-xs text-center mt-2 text-gray-500">
-                {Math.round(
-                  progress
-                )}
-                %
-              </p>
-            </div>
-          )}
+            {/* BUTTONS */}
+            <div className="flex gap-4">
 
-          {/* BUTTONS */}
-          <div className="flex gap-4">
-
-            {/* SPLIT */}
-            <button
-              onClick={handleSplit}
-              disabled={
-                loading ||
-                !!rangeError
-              }
-              className="
+              {/* SPLIT */}
+              <button
+                onClick={handleSplit}
+                disabled={
+                  loading ||
+                  !!rangeError
+                }
+                className="
                 w-full
                 flex items-center justify-center gap-2
                 h-11
@@ -677,27 +677,27 @@ export default function PDFSplitter() {
                 transition-all duration-300
                 disabled:opacity-50
               "
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <Scissors className="w-4 h-4" />
-                  Split PDF
-                </>
-              )}
-            </button>
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <Scissors className="w-4 h-4" />
+                    Split PDF
+                  </>
+                )}
+              </button>
 
-            {/* CHANGE */}
-            <button
-              onClick={
-                handleRemove
-              }
-              disabled={loading}
-              className="
+              {/* CHANGE */}
+              <button
+                onClick={
+                  handleRemove
+                }
+                disabled={loading}
+                className="
                 w-full
                 flex items-center justify-center gap-2
                 h-11
@@ -709,63 +709,63 @@ export default function PDFSplitter() {
                 hover:bg-gray-50
                 transition-all duration-300
               "
-            >
-              <RotateCcw className="w-4 h-4" />
-              Change File
-            </button>
+              >
+                <RotateCcw className="w-4 h-4" />
+                Change File
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* RESULTS */}
-      {results.length > 0 && (
-        <div className="space-y-4">
+        {/* RESULTS */}
+        {results.length > 0 && (
+          <div className="space-y-4">
 
-          {/* SUCCESS */}
-          {success && (
-            <div
-              className="
+            {/* SUCCESS */}
+            {success && (
+              <div
+                className="
                 flex items-center justify-center gap-2
                 text-green-600
                 font-bold text-lg
               "
-            >
-              <CheckCircle2 className="w-5 h-5 animate-bounce" />
-              Split Complete
-            </div>
-          )}
+              >
+                <CheckCircle2 className="w-5 h-5 animate-bounce" />
+                Split Complete
+              </div>
+            )}
 
-          {/* FILE LIST */}
-          <div className="space-y-2 max-h-72 overflow-y-auto">
+            {/* FILE LIST */}
+            <div className="space-y-2 max-h-72 overflow-y-auto">
 
-            {results.map((r, i) => (
-              <div
-                key={i}
-                className="
+              {results.map((r, i) => (
+                <div
+                  key={i}
+                  className="
                   flex justify-between items-center
                   p-3
                   border border-gray-200
                   rounded-2xl
                   bg-white
                 "
-              >
+                >
 
-                <div>
-                  <p className="text-sm font-semibold">
-                    {r.name}
-                  </p>
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {r.name}
+                    </p>
 
-                  <p className="text-xs text-gray-500">
-                    {formatBytes(
-                      r.size
-                    )}
-                  </p>
-                </div>
+                    <p className="text-xs text-gray-500">
+                      {formatBytes(
+                        r.size
+                      )}
+                    </p>
+                  </div>
 
-                <a
-                  href={r.url}
-                  download={r.name}
-                  className="
+                  <a
+                    href={r.url}
+                    download={r.name}
+                    className="
                     w-10 h-10
                     rounded-xl
                     bg-blue-50
@@ -774,20 +774,20 @@ export default function PDFSplitter() {
                     hover:bg-blue-100
                     transition-all
                   "
-                >
-                  <Download className="w-4 h-4" />
-                </a>
-              </div>
-            ))}
-          </div>
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+                </div>
+              ))}
+            </div>
 
-          {/* RESULT BUTTONS */}
-          <div className="flex gap-4">
+            {/* RESULT BUTTONS */}
+            <div className="flex gap-4">
 
-            {/* ZIP */}
-            <button
-              onClick={downloadAll}
-              className="
+              {/* ZIP */}
+              <button
+                onClick={downloadAll}
+                className="
                 w-full
                 flex items-center justify-center gap-2
                 h-11
@@ -801,15 +801,15 @@ export default function PDFSplitter() {
                 hover:scale-[1.02]
                 transition-all duration-300
               "
-            >
-              <Download className="w-4 h-4" />
-              Download ZIP
-            </button>
+              >
+                <Download className="w-4 h-4" />
+                Download ZIP
+              </button>
 
-            {/* RESET */}
-            <button
-              onClick={reset}
-              className="
+              {/* RESET */}
+              <button
+                onClick={reset}
+                className="
                 w-full
                 flex items-center justify-center gap-2
                 h-11
@@ -823,17 +823,18 @@ export default function PDFSplitter() {
                 hover:scale-[1.02]
                 transition-all duration-300
               "
-            >
-              <RotateCcw className="w-4 h-4" />
-              Start Over
-            </button>
+              >
+                <RotateCcw className="w-4 h-4" />
+                Start Over
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
 
-    </div>
-          <div className="contentWrapper">
+      </div>
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

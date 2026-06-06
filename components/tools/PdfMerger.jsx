@@ -25,6 +25,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 /* HELPERS */
 const formatBytes = (bytes) => {
@@ -150,7 +151,7 @@ export default function PDFMerger() {
   const handleDragOver = (e) =>
     e.preventDefault();
 
-  const handleDragLeave = () => {};
+  const handleDragLeave = () => { };
 
   /* REMOVE FILE */
   const removeFile = (index) => {
@@ -224,7 +225,7 @@ export default function PDFMerger() {
         setProgress(
           ((i + 1) /
             files.length) *
-            100
+          100
         );
       }
 
@@ -272,35 +273,35 @@ export default function PDFMerger() {
 
   return (
     <>
-    <div className="max-w-md mx-auto space-y-6 py-8">
+      <div className="max-w-md mx-auto space-y-6 py-8">
 
-      {/* UPLOADER */}
-      {!mergedUrl && (
-        <ImageUploader
-          preview={null}
-          type="document"
-          fileData={null}
-          onChange={handleChange}
-          onDrop={handleDrop}
-          onDragOver={
-            handleDragOver
-          }
-          onDragLeave={
-            handleDragLeave
-          }
-          onRemove={() => {}}
-        />
-      )}
+        {/* UPLOADER */}
+        {!mergedUrl && (
+          <ImageUploader
+            preview={null}
+            type="document"
+            fileData={null}
+            onChange={handleChange}
+            onDrop={handleDrop}
+            onDragOver={
+              handleDragOver
+            }
+            onDragLeave={
+              handleDragLeave
+            }
+            onRemove={() => { }}
+          />
+        )}
 
-      {/* FILES */}
-      {files.length > 0 && (
-        <div className="space-y-3">
+        {/* FILES */}
+        {files.length > 0 && (
+          <div className="space-y-3">
 
-          {files.map(
-            (file, index) => (
-              <div
-                key={index}
-                className="
+            {files.map(
+              (file, index) => (
+                <div
+                  key={index}
+                  className="
                   flex items-center justify-between
                   gap-3
                   p-4
@@ -311,12 +312,12 @@ export default function PDFMerger() {
                   hover:shadow-md
                   transition-all
                 "
-              >
+                >
 
-                <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex items-center gap-3 min-w-0">
 
-                  <div
-                    className="
+                    <div
+                      className="
                       w-11 h-11
                       rounded-xl
                       bg-red-50
@@ -324,33 +325,33 @@ export default function PDFMerger() {
                       flex items-center justify-center
                       shrink-0
                     "
-                  >
-                    <FileText className="w-5 h-5" />
+                    >
+                      <FileText className="w-5 h-5" />
+                    </div>
+
+                    <div className="min-w-0">
+
+                      <p className="text-sm font-semibold truncate">
+                        {file.name}
+                      </p>
+
+                      <p className="text-xs text-gray-500">
+                        {formatBytes(
+                          file.size
+                        )}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="min-w-0">
-
-                    <p className="text-sm font-semibold truncate">
-                      {file.name}
-                    </p>
-
-                    <p className="text-xs text-gray-500">
-                      {formatBytes(
-                        file.size
-                      )}
-                    </p>
-                  </div>
-                </div>
-
-                {/* REMOVE */}
-                <button
-                  onClick={() =>
-                    removeFile(
-                      index
-                    )
-                  }
-                  disabled={loading}
-                  className="
+                  {/* REMOVE */}
+                  <button
+                    onClick={() =>
+                      removeFile(
+                        index
+                      )
+                    }
+                    disabled={loading}
+                    className="
                     w-9 h-9
                     rounded-xl
                     bg-red-50
@@ -360,63 +361,63 @@ export default function PDFMerger() {
                     transition-all
                     disabled:opacity-50
                   "
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            )
-          )}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              )
+            )}
 
-          {/* FILE COUNT */}
-          <div className="text-xs text-gray-500 text-center">
-            {files.length} PDF
-            {files.length > 1
-              ? "s"
-              : ""}{" "}
-            selected
+            {/* FILE COUNT */}
+            <div className="text-xs text-gray-500 text-center">
+              {files.length} PDF
+              {files.length > 1
+                ? "s"
+                : ""}{" "}
+              selected
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* PROGRESS */}
-      {loading && (
-        <div>
+        {/* PROGRESS */}
+        {loading && (
+          <div>
 
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
 
-            <div
-              className="
+              <div
+                className="
                 h-full
                 bg-gradient-to-r
                 from-blue-600
                 to-cyan-500
                 transition-all
               "
-              style={{
-                width: `${progress}%`,
-              }}
-            />
+                style={{
+                  width: `${progress}%`,
+                }}
+              />
+            </div>
+
+            <p className="text-xs text-center mt-2 text-gray-500">
+              {Math.round(progress)}%
+            </p>
           </div>
+        )}
 
-          <p className="text-xs text-center mt-2 text-gray-500">
-            {Math.round(progress)}%
-          </p>
-        </div>
-      )}
+        {/* ACTION BUTTONS */}
+        {files.length > 0 &&
+          !mergedUrl && (
+            <div className="flex gap-4">
 
-      {/* ACTION BUTTONS */}
-      {files.length > 0 &&
-        !mergedUrl && (
-          <div className="flex gap-4">
-
-            {/* MERGE */}
-            <button
-              onClick={mergePDFs}
-              disabled={
-                loading ||
-                files.length < 2
-              }
-              className="
+              {/* MERGE */}
+              <button
+                onClick={mergePDFs}
+                disabled={
+                  loading ||
+                  files.length < 2
+                }
+                className="
                 w-full
                 h-11
                 rounded-2xl
@@ -434,25 +435,25 @@ export default function PDFMerger() {
                 disabled:opacity-50
                 disabled:cursor-not-allowed
               "
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Merging...
-                </>
-              ) : (
-                <>
-                  <Plus className="w-4 h-4" />
-                  Merge PDFs
-                </>
-              )}
-            </button>
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Merging...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4" />
+                    Merge PDFs
+                  </>
+                )}
+              </button>
 
-            {/* RESET */}
-            <button
-              onClick={reset}
-              disabled={loading}
-              className="
+              {/* RESET */}
+              <button
+                onClick={reset}
+                disabled={loading}
+                className="
                 w-full
                 h-11
                 rounded-2xl
@@ -466,17 +467,17 @@ export default function PDFMerger() {
                 transition-all duration-300
                 disabled:opacity-50
               "
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reset
-            </button>
-          </div>
-        )}
+              >
+                <RotateCcw className="w-4 h-4" />
+                Reset
+              </button>
+            </div>
+          )}
 
-      {/* RESULT */}
-      {mergedUrl && (
-        <div
-          className="
+        {/* RESULT */}
+        {mergedUrl && (
+          <div
+            className="
             bg-white
             border border-gray-200
             rounded-3xl
@@ -485,29 +486,29 @@ export default function PDFMerger() {
             text-center
             space-y-5
           "
-        >
+          >
 
-          {/* SUCCESS */}
-          {success && (
-            <div
-              className="
+            {/* SUCCESS */}
+            {success && (
+              <div
+                className="
                 flex items-center justify-center gap-2
                 text-green-600
                 font-bold text-lg
               "
-            >
-              <CheckCircle2 className="w-5 h-5 animate-bounce" />
-              PDF merged successfully
-            </div>
-          )}
+              >
+                <CheckCircle2 className="w-5 h-5 animate-bounce" />
+                PDF merged successfully
+              </div>
+            )}
 
-          {/* ACTIONS */}
-          <div className="flex gap-4">
+            {/* ACTIONS */}
+            <div className="flex gap-4">
 
-            {/* START OVER */}
-            <button
-              onClick={reset}
-              className="
+              {/* START OVER */}
+              <button
+                onClick={reset}
+                className="
                 w-full
                 h-11
                 rounded-2xl
@@ -521,15 +522,15 @@ export default function PDFMerger() {
                 hover:scale-[1.02]
                 transition-all duration-300
               "
-            >
-              <RotateCcw className="w-4 h-4" />
-              Start Over
-            </button>
+              >
+                <RotateCcw className="w-4 h-4" />
+                Start Over
+              </button>
 
-            {/* DOWNLOAD */}
-            <button
-              onClick={download}
-              className="
+              {/* DOWNLOAD */}
+              <button
+                onClick={download}
+                className="
                 w-full
                 h-11
                 rounded-2xl
@@ -543,16 +544,17 @@ export default function PDFMerger() {
                 hover:scale-[1.02]
                 transition-all duration-300
               "
-            >
-              <Download className="w-4 h-4" />
-              Download
-            </button>
+              >
+                <Download className="w-4 h-4" />
+                Download
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-    </div>
-          <div className="contentWrapper">
+      </div>
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

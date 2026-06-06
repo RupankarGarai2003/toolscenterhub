@@ -24,6 +24,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function PasswordGenerator() {
   const [password, setPassword] =
@@ -118,7 +119,7 @@ export default function PasswordGenerator() {
 
     return Math.round(
       length *
-        Math.log2(charset || 1)
+      Math.log2(charset || 1)
     );
   }, [
     length,
@@ -276,40 +277,40 @@ export default function PasswordGenerator() {
     if (uppercase) {
       generated +=
         upper[
-          Math.floor(
-            Math.random() *
-              upper.length
-          )
+        Math.floor(
+          Math.random() *
+          upper.length
+        )
         ];
     }
 
     if (lowercase) {
       generated +=
         lower[
-          Math.floor(
-            Math.random() *
-              lower.length
-          )
+        Math.floor(
+          Math.random() *
+          lower.length
+        )
         ];
     }
 
     if (numbers) {
       generated +=
         nums[
-          Math.floor(
-            Math.random() *
-              nums.length
-          )
+        Math.floor(
+          Math.random() *
+          nums.length
+        )
         ];
     }
 
     if (symbols) {
       generated +=
         syms[
-          Math.floor(
-            Math.random() *
-              syms.length
-          )
+        Math.floor(
+          Math.random() *
+          syms.length
+        )
         ];
     }
 
@@ -319,10 +320,10 @@ export default function PasswordGenerator() {
     ) {
       generated +=
         chars[
-          Math.floor(
-            Math.random() *
-              chars.length
-          )
+        Math.floor(
+          Math.random() *
+          chars.length
+        )
         ];
     }
 
@@ -389,480 +390,477 @@ export default function PasswordGenerator() {
 
   return (
     <>
-    <div className="min-h-screen bg-[#f4f7fb] py-5 px-3">
-      <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen bg-[#f4f7fb] py-5 px-3">
+        <div className="max-w-6xl mx-auto">
 
-        {/* CARD */}
-        <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-200/40">
+          {/* CARD */}
+          <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-200/40">
 
-          {/* HEADER */}
-          <div className="bg-gradient-to-r from-slate-900 via-indigo-900 to-violet-800 px-6 py-5 flex items-center justify-between">
+            {/* HEADER */}
+            <div className="bg-gradient-to-r from-slate-900 via-indigo-900 to-violet-800 px-6 py-5 flex items-center justify-between">
 
-            <div className="flex items-center gap-4 text-white">
+              <div className="flex items-center gap-4 text-white">
 
-              <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+
+                <div>
+
+                  <h2 className="text-2xl font-bold">
+                    Password Generator
+                  </h2>
+
+                  <p className="text-sm text-white/70">
+                    Professional secure password generator
+                  </p>
+                </div>
               </div>
 
-              <div>
-
-                <h2 className="text-2xl font-bold">
-                  Password Generator
-                </h2>
-
-                <p className="text-sm text-white/70">
-                  Professional secure password generator
-                </p>
+              <div className="hidden md:flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-white text-sm">
+                <Sparkles className="w-4 h-4" />
+                Strong Security
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-white text-sm">
-              <Sparkles className="w-4 h-4" />
-              Strong Security
-            </div>
-          </div>
+            {/* CONTENT */}
+            <div className="p-6">
 
-          {/* CONTENT */}
-          <div className="p-6">
+              {/* PASSWORD */}
+              <div className="mb-6">
 
-            {/* PASSWORD */}
-            <div className="mb-6">
+                <label className="text-sm font-semibold text-slate-700 mb-2 block">
+                  Generated Password
+                </label>
 
-              <label className="text-sm font-semibold text-slate-700 mb-2 block">
-                Generated Password
-              </label>
+                <div className="bg-gradient-to-r from-slate-50 to-indigo-50 border border-slate-200 rounded-2xl px-4 py-4 flex items-center justify-between gap-4">
 
-              <div className="bg-gradient-to-r from-slate-50 to-indigo-50 border border-slate-200 rounded-2xl px-4 py-4 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-4 min-w-0">
 
-                <div className="flex items-center gap-4 min-w-0">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white flex items-center justify-center shrink-0">
+                      <KeyRound className="w-5 h-5" />
+                    </div>
 
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white flex items-center justify-center shrink-0">
-                    <KeyRound className="w-5 h-5" />
-                  </div>
+                    <div className="min-w-0">
 
-                  <div className="min-w-0">
+                      <p className="text-xs text-slate-500 mb-1">
+                        Generated Secure Password
+                      </p>
 
-                    <p className="text-xs text-slate-500 mb-1">
-                      Generated Secure Password
-                    </p>
-
-                    <h3 className="font-mono text-2xl font-bold text-slate-800 truncate">
-                      {password
-                        ? showPassword
-                          ? password
-                          : "•".repeat(
+                      <h3 className="font-mono text-2xl font-bold text-slate-800 truncate">
+                        {password
+                          ? showPassword
+                            ? password
+                            : "•".repeat(
                               password.length
                             )
-                        : "Generate password"}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-
-                  <button
-                    onClick={() =>
-                      setShowPassword(
-                        !showPassword
-                      )
-                    }
-                    className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <Eye className="w-4 h-4 text-slate-600" />
-                    )}
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      copyPassword()
-                    }
-                    className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center"
-                  >
-                    {copied ? (
-                      <Check className="w-4 h-4 text-emerald-600" />
-                    ) : (
-                      <Copy className="w-4 h-4 text-slate-600" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* GRID */}
-            <div className="grid lg:grid-cols-[1fr_320px] gap-5">
-
-              {/* LEFT */}
-              <div>
-
-                {/* CUSTOM WORD */}
-                <div className="mb-5">
-
-                  <label className="text-sm font-medium text-slate-700 mb-2 block">
-                    Custom Keyword
-                  </label>
-
-                  <input
-                    type="text"
-                    value={customWord}
-                    onChange={(e) =>
-                      setCustomWord(
-                        e.target.value
-                      )
-                    }
-                    placeholder="Enter custom keyword"
-                    className="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-200 text-sm"
-                  />
-                </div>
-
-                {/* PRESETS */}
-                <div className="mb-5">
-
-                  <label className="text-sm font-medium text-slate-700 mb-2 block">
-                    Quick Presets
-                  </label>
-
-                  <div className="flex flex-wrap gap-2">
-
-                    {[8, 12, 16, 24, 32].map(
-                      (size) => (
-                        <button
-                          key={size}
-                          onClick={() =>
-                            setLength(
-                              size
-                            )
-                          }
-                          className={`
-                            px-4 py-2 rounded-xl text-sm font-medium transition
-                            ${
-                              length ===
-                              size
-                                ? "bg-indigo-600 text-white shadow-md"
-                                : "bg-slate-100 text-slate-700"
-                            }
-                          `}
-                        >
-                          {size} Chars
-                        </button>
-                      )
-                    )}
-                  </div>
-                </div>
-
-                {/* LENGTH */}
-                <div className="mb-5">
-
-                  <div className="flex items-center justify-between mb-2">
-
-                    <label className="text-sm font-medium text-slate-700">
-                      Password Length
-                    </label>
-
-                    <div className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-semibold">
-                      {length}
+                          : "Generate password"}
+                      </h3>
                     </div>
                   </div>
 
-                  <input
-                    type="range"
-                    min="6"
-                    max="64"
-                    value={length}
-                    onChange={(e) =>
-                      setLength(
-                        Number(
-                          e.target.value
+                  <div className="flex items-center gap-2">
+
+                    <button
+                      onClick={() =>
+                        setShowPassword(
+                          !showPassword
                         )
-                      )
-                    }
-                    className="w-full accent-indigo-600"
-                  />
-                </div>
-
-                {/* STRENGTH */}
-                <div className="mb-5">
-
-                  <div className="flex items-center justify-between mb-2">
-
-                    <label className="text-sm font-medium text-slate-700">
-                      Password Strength
-                    </label>
-
-                    <span
-                      className={`text-sm font-semibold ${strength.textColor}`}
+                      }
+                      className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center"
                     >
-                      {strength.text}
-                    </span>
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4 text-slate-600" />
+                      ) : (
+                        <Eye className="w-4 h-4 text-slate-600" />
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        copyPassword()
+                      }
+                      className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center"
+                    >
+                      {copied ? (
+                        <Check className="w-4 h-4 text-emerald-600" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-slate-600" />
+                      )}
+                    </button>
                   </div>
-
-                  <div className="grid grid-cols-3 gap-2">
-
-                    <div
-                      className={`h-3 rounded-full ${
-                        strength.width !==
-                        "33%"
-                          ? strength.color
-                          : "bg-red-500"
-                      }`}
-                    />
-
-                    <div
-                      className={`h-3 rounded-full ${
-                        strength.width ===
-                          "66%" ||
-                        strength.width ===
-                          "100%"
-                          ? "bg-yellow-500"
-                          : "bg-slate-200"
-                      }`}
-                    />
-
-                    <div
-                      className={`h-3 rounded-full ${
-                        strength.width ===
-                        "100%"
-                          ? "bg-emerald-500"
-                          : "bg-slate-200"
-                      }`}
-                    />
-                  </div>
-                </div>
-
-                {/* SETTINGS */}
-                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-
-                  <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
-                    <h3 className="text-sm font-semibold text-slate-700">
-                      Password Settings
-                    </h3>
-                  </div>
-
-                  <table className="w-full text-sm">
-
-                    <tbody>
-
-                      <TableRow
-                        label="Uppercase"
-                        checked={uppercase}
-                        onChange={() =>
-                          setUppercase(
-                            !uppercase
-                          )
-                        }
-                      />
-
-                      <TableRow
-                        label="Lowercase"
-                        checked={lowercase}
-                        onChange={() =>
-                          setLowercase(
-                            !lowercase
-                          )
-                        }
-                      />
-
-                      <TableRow
-                        label="Numbers"
-                        checked={numbers}
-                        onChange={() =>
-                          setNumbers(
-                            !numbers
-                          )
-                        }
-                      />
-
-                      <TableRow
-                        label="Symbols"
-                        checked={symbols}
-                        onChange={() =>
-                          setSymbols(
-                            !symbols
-                          )
-                        }
-                      />
-
-                      <TableRow
-                        label="Exclude Similar"
-                        checked={
-                          excludeSimilar
-                        }
-                        onChange={() =>
-                          setExcludeSimilar(
-                            !excludeSimilar
-                          )
-                        }
-                      />
-                    </tbody>
-                  </table>
                 </div>
               </div>
 
-              {/* RIGHT */}
-              <div className="space-y-4">
+              {/* GRID */}
+              <div className="grid lg:grid-cols-[1fr_320px] gap-5">
 
-                <div className="grid grid-cols-2 gap-3">
+                {/* LEFT */}
+                <div>
 
-                  <AnalysisCard
-                    icon={
-                      <Binary className="w-4 h-4" />
-                    }
-                    label="Entropy"
-                    value={`${entropy}-bit`}
-                  />
+                  {/* CUSTOM WORD */}
+                  <div className="mb-5">
 
-                  <AnalysisCard
-                    icon={
-                      <Timer className="w-4 h-4" />
-                    }
-                    label="Crack Time"
-                    value={crackTime}
-                  />
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">
+                      Custom Keyword
+                    </label>
 
-                  <AnalysisCard
-                    icon={
-                      <Shield className="w-4 h-4" />
-                    }
-                    label="Complexity"
-                    value={
-                      strength.text
-                    }
-                  />
-
-                  <AnalysisCard
-                    icon={
-                      <KeyRound className="w-4 h-4" />
-                    }
-                    label="Characters"
-                    value={length}
-                  />
-                </div>
-
-                {/* HISTORY */}
-                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-
-                  <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
-
-                    <History className="w-4 h-4 text-slate-600" />
-
-                    <h3 className="text-sm font-semibold text-slate-700">
-                      Password History
-                    </h3>
+                    <input
+                      type="text"
+                      value={customWord}
+                      onChange={(e) =>
+                        setCustomWord(
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter custom keyword"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-200 text-sm"
+                    />
                   </div>
 
-                  <div className="p-3 space-y-2 max-h-[230px] overflow-auto">
+                  {/* PRESETS */}
+                  <div className="mb-5">
 
-                    {history.length ===
-                    0 ? (
-                      <p className="text-sm text-slate-400 text-center py-10">
-                        No passwords generated
-                      </p>
-                    ) : (
-                      history.map(
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">
+                      Quick Presets
+                    </label>
+
+                    <div className="flex flex-wrap gap-2">
+
+                      {[8, 12, 16, 24, 32].map(
+                        (size) => (
+                          <button
+                            key={size}
+                            onClick={() =>
+                              setLength(
+                                size
+                              )
+                            }
+                            className={`
+                            px-4 py-2 rounded-xl text-sm font-medium transition
+                            ${length ===
+                                size
+                                ? "bg-indigo-600 text-white shadow-md"
+                                : "bg-slate-100 text-slate-700"
+                              }
+                          `}
+                          >
+                            {size} Chars
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  {/* LENGTH */}
+                  <div className="mb-5">
+
+                    <div className="flex items-center justify-between mb-2">
+
+                      <label className="text-sm font-medium text-slate-700">
+                        Password Length
+                      </label>
+
+                      <div className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-semibold">
+                        {length}
+                      </div>
+                    </div>
+
+                    <input
+                      type="range"
+                      min="6"
+                      max="64"
+                      value={length}
+                      onChange={(e) =>
+                        setLength(
+                          Number(
+                            e.target.value
+                          )
+                        )
+                      }
+                      className="w-full accent-indigo-600"
+                    />
+                  </div>
+
+                  {/* STRENGTH */}
+                  <div className="mb-5">
+
+                    <div className="flex items-center justify-between mb-2">
+
+                      <label className="text-sm font-medium text-slate-700">
+                        Password Strength
+                      </label>
+
+                      <span
+                        className={`text-sm font-semibold ${strength.textColor}`}
+                      >
+                        {strength.text}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2">
+
+                      <div
+                        className={`h-3 rounded-full ${strength.width !==
+                            "33%"
+                            ? strength.color
+                            : "bg-red-500"
+                          }`}
+                      />
+
+                      <div
+                        className={`h-3 rounded-full ${strength.width ===
+                            "66%" ||
+                            strength.width ===
+                            "100%"
+                            ? "bg-yellow-500"
+                            : "bg-slate-200"
+                          }`}
+                      />
+
+                      <div
+                        className={`h-3 rounded-full ${strength.width ===
+                            "100%"
+                            ? "bg-emerald-500"
+                            : "bg-slate-200"
+                          }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* SETTINGS */}
+                  <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+
+                    <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
+                      <h3 className="text-sm font-semibold text-slate-700">
+                        Password Settings
+                      </h3>
+                    </div>
+
+                    <table className="w-full text-sm">
+
+                      <tbody>
+
+                        <TableRow
+                          label="Uppercase"
+                          checked={uppercase}
+                          onChange={() =>
+                            setUppercase(
+                              !uppercase
+                            )
+                          }
+                        />
+
+                        <TableRow
+                          label="Lowercase"
+                          checked={lowercase}
+                          onChange={() =>
+                            setLowercase(
+                              !lowercase
+                            )
+                          }
+                        />
+
+                        <TableRow
+                          label="Numbers"
+                          checked={numbers}
+                          onChange={() =>
+                            setNumbers(
+                              !numbers
+                            )
+                          }
+                        />
+
+                        <TableRow
+                          label="Symbols"
+                          checked={symbols}
+                          onChange={() =>
+                            setSymbols(
+                              !symbols
+                            )
+                          }
+                        />
+
+                        <TableRow
+                          label="Exclude Similar"
+                          checked={
+                            excludeSimilar
+                          }
+                          onChange={() =>
+                            setExcludeSimilar(
+                              !excludeSimilar
+                            )
+                          }
+                        />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* RIGHT */}
+                <div className="space-y-4">
+
+                  <div className="grid grid-cols-2 gap-3">
+
+                    <AnalysisCard
+                      icon={
+                        <Binary className="w-4 h-4" />
+                      }
+                      label="Entropy"
+                      value={`${entropy}-bit`}
+                    />
+
+                    <AnalysisCard
+                      icon={
+                        <Timer className="w-4 h-4" />
+                      }
+                      label="Crack Time"
+                      value={crackTime}
+                    />
+
+                    <AnalysisCard
+                      icon={
+                        <Shield className="w-4 h-4" />
+                      }
+                      label="Complexity"
+                      value={
+                        strength.text
+                      }
+                    />
+
+                    <AnalysisCard
+                      icon={
+                        <KeyRound className="w-4 h-4" />
+                      }
+                      label="Characters"
+                      value={length}
+                    />
+                  </div>
+
+                  {/* HISTORY */}
+                  <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+
+                    <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
+
+                      <History className="w-4 h-4 text-slate-600" />
+
+                      <h3 className="text-sm font-semibold text-slate-700">
+                        Password History
+                      </h3>
+                    </div>
+
+                    <div className="p-3 space-y-2 max-h-[230px] overflow-auto">
+
+                      {history.length ===
+                        0 ? (
+                        <p className="text-sm text-slate-400 text-center py-10">
+                          No passwords generated
+                        </p>
+                      ) : (
+                        history.map(
+                          (
+                            item,
+                            index
+                          ) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2"
+                            >
+                              <p className="font-mono text-sm truncate text-slate-700">
+                                {item}
+                              </p>
+
+                              <button
+                                onClick={() =>
+                                  copyPassword(
+                                    item
+                                  )
+                                }
+                                className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center"
+                              >
+                                <Copy className="w-3.5 h-3.5 text-slate-600" />
+                              </button>
+                            </div>
+                          )
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  {/* TIPS */}
+                  <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+
+                    <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
+
+                      <TriangleAlert className="w-4 h-4 text-amber-500" />
+
+                      <h3 className="text-sm font-semibold text-slate-700">
+                        Security Tips
+                      </h3>
+                    </div>
+
+                    <div className="p-4 space-y-3">
+
+                      {securityTips.map(
                         (
-                          item,
+                          tip,
                           index
                         ) => (
                           <div
                             key={index}
-                            className="flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2"
+                            className="flex items-start gap-2 text-sm text-slate-600"
                           >
-                            <p className="font-mono text-sm truncate text-slate-700">
-                              {item}
-                            </p>
+                            <div className="w-2 h-2 rounded-full bg-indigo-500 mt-2" />
 
-                            <button
-                              onClick={() =>
-                                copyPassword(
-                                  item
-                                )
-                              }
-                              className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center"
-                            >
-                              <Copy className="w-3.5 h-3.5 text-slate-600" />
-                            </button>
+                            <p>{tip}</p>
                           </div>
                         )
-                      )
-                    )}
-                  </div>
-                </div>
-
-                {/* TIPS */}
-                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-
-                  <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
-
-                    <TriangleAlert className="w-4 h-4 text-amber-500" />
-
-                    <h3 className="text-sm font-semibold text-slate-700">
-                      Security Tips
-                    </h3>
-                  </div>
-
-                  <div className="p-4 space-y-3">
-
-                    {securityTips.map(
-                      (
-                        tip,
-                        index
-                      ) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-2 text-sm text-slate-600"
-                        >
-                          <div className="w-2 h-2 rounded-full bg-indigo-500 mt-2" />
-
-                          <p>{tip}</p>
-                        </div>
-                      )
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* BUTTONS */}
-            <div className="flex justify-center gap-3 mt-6">
+              {/* BUTTONS */}
+              <div className="flex justify-center gap-3 mt-6">
 
-              <ActionButton
-                onClick={
-                  generatePassword
-                }
-                icon={
-                  <RefreshCw className="w-4 h-4" />
-                }
-                label="Generate Password"
-                gradient="from-indigo-600 to-violet-600"
-              />
+                <ActionButton
+                  onClick={
+                    generatePassword
+                  }
+                  icon={
+                    <RefreshCw className="w-4 h-4" />
+                  }
+                  label="Generate Password"
+                  gradient="from-indigo-600 to-violet-600"
+                />
 
-              <ActionButton
-                onClick={
-                  downloadPassword
-                }
-                icon={
-                  <Download className="w-4 h-4" />
-                }
-                label="Download"
-                gradient="from-emerald-500 to-teal-500"
-              />
+                <ActionButton
+                  onClick={
+                    downloadPassword
+                  }
+                  icon={
+                    <Download className="w-4 h-4" />
+                  }
+                  label="Download"
+                  gradient="from-emerald-500 to-teal-500"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-             {/* TOOL CONTENT */}
-        <div className="contentWrapper">
-          <About />
-          <HowToUse />
-          <Features />
-          <Benefits />
-          <FAQ />
-        </div>
+      {/* TOOL CONTENT */}
+      <div className="contentWrapper">
+        <RelatedTools />
+        <About />
+        <HowToUse />
+        <Features />
+        <Benefits />
+        <FAQ />
+      </div>
 
-      
+
     </>
   );
 }
@@ -886,10 +884,9 @@ function TableRow({
           onClick={onChange}
           className={`
             relative w-11 h-6 rounded-full transition
-            ${
-              checked
-                ? "bg-indigo-600"
-                : "bg-slate-300"
+            ${checked
+              ? "bg-indigo-600"
+              : "bg-slate-300"
             }
           `}
         >
@@ -897,10 +894,9 @@ function TableRow({
             className={`
               absolute top-1 left-1
               w-4 h-4 rounded-full bg-white transition
-              ${
-                checked
-                  ? "translate-x-5"
-                  : ""
+              ${checked
+                ? "translate-x-5"
+                : ""
               }
             `}
           />
@@ -959,6 +955,6 @@ function ActionButton({
       {icon}
       {label}
     </button>
-    
+
   );
 }

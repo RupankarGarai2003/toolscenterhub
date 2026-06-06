@@ -35,6 +35,8 @@ export default function Footer() {
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/contact-us">Contact</Link>
           <Link href="/help">Help</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/disclaimer">Disclaimer</Link>
         </div>
 
         {/* CONTACT */}
@@ -43,7 +45,7 @@ export default function Footer() {
 
           <p><MapPin size={14} /> India</p>
           <p><Mail size={14} /> support@toolscenterhub.com</p>
-          <p><Phone size={14} /> +91 99999 99999</p>
+          <p><Phone size={14} /> +91 8391808784</p>
         </div>
 
       </div>

@@ -9,6 +9,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function PngToJpg() {
   const [preview, setPreview] = useState(null);
@@ -184,7 +185,7 @@ export default function PngToJpg() {
             />
 
             <div className="flex justify-center gap-6">
-              
+
               {/* DOWNLOAD */}
               <button
                 onClick={handleDownload}
@@ -225,6 +226,7 @@ export default function PngToJpg() {
       </div>
 
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

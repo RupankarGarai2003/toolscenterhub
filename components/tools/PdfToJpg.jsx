@@ -9,6 +9,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 import {
   Download,
@@ -432,6 +433,7 @@ export default function PdfToJpg() {
       </div>
       {/* TOOL CONTENT */}
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

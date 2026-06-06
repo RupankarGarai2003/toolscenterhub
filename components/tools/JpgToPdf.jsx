@@ -15,6 +15,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function JPGtoPDF() {
   const [images, setImages] =
@@ -42,7 +43,7 @@ export default function JPGtoPDF() {
     // LIMIT
     if (
       imgs.length +
-        images.length >
+      images.length >
       20
     ) {
       alert(
@@ -242,7 +243,7 @@ export default function JPGtoPDF() {
 
   return (
     <>
-     <div className="container">
+      <div className="container">
 
         {/* UPLOADER */}
         <ImageUploader
@@ -254,14 +255,13 @@ export default function JPGtoPDF() {
           fileData={
             images.length > 0
               ? {
-                  name: `${images.length} image${
-                    images.length >
+                name: `${images.length} image${images.length >
                     1
-                      ? "s"
-                      : ""
+                    ? "s"
+                    : ""
                   } selected`,
-                  size: `${images.length} file(s)`,
-                }
+                size: `${images.length} file(s)`,
+              }
               : null
           }
           onChange={
@@ -277,37 +277,37 @@ export default function JPGtoPDF() {
         {/* PREVIEW */}
         {images.length >
           0 && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
-            {images.map(
-              (img, i) => (
-                <div
-                  key={i}
-                  className="relative  rounded-2xl overflow-hidden bg-white shadow-sm"
-                >
-                  <img
-                    src={
-                      img.url
-                    }
-                    alt="preview"
-                    className="w-full h-40 object-cover"
-                  />
-
-                  <button
-                    onClick={() =>
-                      removeImage(
-                        i
-                      )
-                    }
-                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow"
+              {images.map(
+                (img, i) => (
+                  <div
+                    key={i}
+                    className="relative  rounded-2xl overflow-hidden bg-white shadow-sm"
                   >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              )
-            )}
-          </div>
-        )}
+                    <img
+                      src={
+                        img.url
+                      }
+                      alt="preview"
+                      className="w-full h-40 object-cover"
+                    />
+
+                    <button
+                      onClick={() =>
+                        removeImage(
+                          i
+                        )
+                      }
+                      className="absolute top-2 right-2 bg-white p-2 rounded-full shadow"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                )
+              )}
+            </div>
+          )}
 
         {/* CONVERT */}
         {images.length >
@@ -359,12 +359,13 @@ export default function JPGtoPDF() {
           </div>
         )}
 
-     
 
-     </div>
+
+      </div>
 
       {/* CONTENT */}
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

@@ -19,6 +19,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 import { saveAs } from "file-saver";
 
@@ -199,7 +200,7 @@ export default function PDFToWord() {
             Math.floor(
               (i /
                 pdf.numPages) *
-                100
+              100
             )
           );
 
@@ -260,14 +261,14 @@ export default function PDFToWord() {
                     data: imageBytes,
 
                     transformation:
-                      {
-                        width: 520,
+                    {
+                      width: 520,
 
-                        height:
-                          (viewport.height *
-                            520) /
-                          viewport.width,
-                      },
+                      height:
+                        (viewport.height *
+                          520) /
+                        viewport.width,
+                    },
                   }),
                 ],
               })
@@ -418,251 +419,248 @@ export default function PDFToWord() {
 
   return (
     <>
-    <div className="max-w-lg mx-auto px-3 py-3 space-y-4">
+      <div className="max-w-lg mx-auto px-3 py-3 space-y-4">
 
-      {/* UPLOADER */}
-      <ImageUploader
-        preview={null}
-        type="document"
-        fileData={fileData}
-        onChange={handleChange}
-        onDrop={handleDrop}
-        onDragOver={
-          handleDragOver
-        }
-        onRemove={
-          handleRemove
-        }
-      />
+        {/* UPLOADER */}
+        <ImageUploader
+          preview={null}
+          type="document"
+          fileData={fileData}
+          onChange={handleChange}
+          onDrop={handleDrop}
+          onDragOver={
+            handleDragOver
+          }
+          onRemove={
+            handleRemove
+          }
+        />
 
-      {/* CARD */}
-      {file && (
-        <div className="bg-white rounded-[28px] shadow-lg border border-gray-100 p-5 space-y-5">
+        {/* CARD */}
+        {file && (
+          <div className="bg-white rounded-[28px] shadow-lg border border-gray-100 p-5 space-y-5">
 
-          {/* HEADER */}
-          <div className="text-center space-y-3">
+            {/* HEADER */}
+            <div className="text-center space-y-3">
 
-            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
-              <ScanText className="w-8 h-8" />
-            </div>
-
-          </div>
-
-          {/* FILE INFO */}
-          <div className="bg-gray-50 rounded-2xl border border-gray-100 p-4 flex items-center justify-between">
-
-            <div className="min-w-0">
-              <p className="font-semibold text-sm truncate">
-                {fileData?.name}
-              </p>
-
-              <p className="text-xs text-gray-500 mt-1">
-                {fileData?.size}
-              </p>
-            </div>
-
-            <div className="w-10 h-10 rounded-xl bg-white border flex items-center justify-center">
-              <FileText className="w-5 h-5 text-blue-500" />
-            </div>
-          </div>
-
-          {/* PROGRESS */}
-          {converting && (
-            <div>
-
-              <div className="flex items-center justify-between mb-2 text-sm font-semibold">
-                <span>
-                  {selectedMode ===
-                  "ocr"
-                    ? "OCR Processing"
-                    : "Converting PDF"}
-                </span>
-
-                <span>
-                  {progress}%
-                </span>
+              <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+                <ScanText className="w-8 h-8" />
               </div>
 
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all"
-                  style={{
-                    width: `${progress}%`,
-                  }}
-                />
+            </div>
+
+            {/* FILE INFO */}
+            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-4 flex items-center justify-between">
+
+              <div className="min-w-0">
+                <p className="font-semibold text-sm truncate">
+                  {fileData?.name}
+                </p>
+
+                <p className="text-xs text-gray-500 mt-1">
+                  {fileData?.size}
+                </p>
+              </div>
+
+              <div className="w-10 h-10 rounded-xl bg-white border flex items-center justify-center">
+                <FileText className="w-5 h-5 text-blue-500" />
               </div>
             </div>
-          )}
 
-          {/* BEFORE SUCCESS */}
-          {!success && (
-            <div className="space-y-4">
+            {/* PROGRESS */}
+            {converting && (
+              <div>
 
-              {/* OPTIONS */}
-              <div className="grid gap-3">
-
-                {/* NORMAL */}
-                <button
-                  onClick={() =>
-                    setSelectedMode(
-                      "normal"
-                    )
-                  }
-                  className={`rounded-2xl border p-4 text-left transition-all
-                    ${
-                      selectedMode ===
-                      "normal"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-blue-200 bg-blue-50/50"
-                    }`}
-                >
-                  <h3 className="font-bold text-gray-900">
-                    Without OCR
-                  </h3>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    Faster and
-                    preserves original
-                    layout.
-                  </p>
-                </button>
-
-                {/* OCR */}
-                <button
-                  onClick={() =>
-                    setSelectedMode(
+                <div className="flex items-center justify-between mb-2 text-sm font-semibold">
+                  <span>
+                    {selectedMode ===
                       "ocr"
-                    )
-                  }
-                  className={`rounded-2xl border p-4 text-left transition-all
-                    ${
-                      selectedMode ===
-                      "ocr"
-                        ? "border-purple-500 bg-purple-50"
-                        : "border-purple-200 bg-purple-50/50"
-                    }`}
-                >
-                  <h3 className="font-bold text-gray-900">
-                    With OCR
-                  </h3>
+                      ? "OCR Processing"
+                      : "Converting PDF"}
+                  </span>
 
-                  <p className="text-sm text-gray-500 mt-1">
-                    Best for scanned
-                    PDFs and images.
-                  </p>
-                </button>
+                  <span>
+                    {progress}%
+                  </span>
+                </div>
+
+                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all"
+                    style={{
+                      width: `${progress}%`,
+                    }}
+                  />
+                </div>
               </div>
+            )}
 
-              {/* BUTTONS */}
-              {!converting && (
-                <div className="grid grid-cols-2 gap-3">
+            {/* BEFORE SUCCESS */}
+            {!success && (
+              <div className="space-y-4">
 
-                  {/* RESET */}
+                {/* OPTIONS */}
+                <div className="grid gap-3">
+
+                  {/* NORMAL */}
                   <button
-                    onClick={
-                      handleRemove
-                    }
-                    className="h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                    Reset
-                  </button>
-
-                  {/* CONVERT */}
-                  <button
-                    disabled={
-                      !selectedMode
-                    }
                     onClick={() =>
-                      handleConvert(
-                        selectedMode
+                      setSelectedMode(
+                        "normal"
                       )
                     }
-                    className={`h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 transition
-                      ${
+                    className={`rounded-2xl border p-4 text-left transition-all
+                    ${selectedMode ===
+                        "normal"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-blue-200 bg-blue-50/50"
+                      }`}
+                  >
+                    <h3 className="font-bold text-gray-900">
+                      Without OCR
+                    </h3>
+
+                    <p className="text-sm text-gray-500 mt-1">
+                      Faster and
+                      preserves original
+                      layout.
+                    </p>
+                  </button>
+
+                  {/* OCR */}
+                  <button
+                    onClick={() =>
+                      setSelectedMode(
+                        "ocr"
+                      )
+                    }
+                    className={`rounded-2xl border p-4 text-left transition-all
+                    ${selectedMode ===
+                        "ocr"
+                        ? "border-purple-500 bg-purple-50"
+                        : "border-purple-200 bg-purple-50/50"
+                      }`}
+                  >
+                    <h3 className="font-bold text-gray-900">
+                      With OCR
+                    </h3>
+
+                    <p className="text-sm text-gray-500 mt-1">
+                      Best for scanned
+                      PDFs and images.
+                    </p>
+                  </button>
+                </div>
+
+                {/* BUTTONS */}
+                {!converting && (
+                  <div className="grid grid-cols-2 gap-3">
+
+                    {/* RESET */}
+                    <button
+                      onClick={
+                        handleRemove
+                      }
+                      className="h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                      Reset
+                    </button>
+
+                    {/* CONVERT */}
+                    <button
+                      disabled={
                         !selectedMode
+                      }
+                      onClick={() =>
+                        handleConvert(
+                          selectedMode
+                        )
+                      }
+                      className={`h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 transition
+                      ${!selectedMode
                           ? "bg-gray-300 cursor-not-allowed"
                           : selectedMode ===
                             "ocr"
-                          ? "bg-gradient-to-r from-purple-500 to-pink-600"
-                          : "bg-gradient-to-r from-blue-500 to-cyan-600"
-                      }`}
-                  >
-                    <Download className="w-4 h-4" />
-                    Convert Now
-                  </button>
-                </div>
-              )}
+                            ? "bg-gradient-to-r from-purple-500 to-pink-600"
+                            : "bg-gradient-to-r from-blue-500 to-cyan-600"
+                        }`}
+                    >
+                      <Download className="w-4 h-4" />
+                      Convert Now
+                    </button>
+                  </div>
+                )}
 
-              {/* LOADING */}
-              {converting && (
-                <div className="bg-gray-50 rounded-2xl p-5 text-center">
+                {/* LOADING */}
+                {converting && (
+                  <div className="bg-gray-50 rounded-2xl p-5 text-center">
 
-                  <Loader2 className="w-8 h-8 animate-spin mx-auto mb-3 text-blue-600" />
+                    <Loader2 className="w-8 h-8 animate-spin mx-auto mb-3 text-blue-600" />
 
-                  <p className="font-semibold text-sm">
-                    {selectedMode ===
-                    "ocr"
-                      ? "OCR Processing..."
-                      : "Converting PDF..."}
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* SUCCESS */}
-          {success && (
-            <div className="space-y-3">
-
-              <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-700 font-semibold flex items-center justify-center gap-2 text-sm">
-                <CheckCircle2 className="w-5 h-5" />
-                DOCX Ready
+                    <p className="font-semibold text-sm">
+                      {selectedMode ===
+                        "ocr"
+                        ? "OCR Processing..."
+                        : "Converting PDF..."}
+                    </p>
+                  </div>
+                )}
               </div>
+            )}
 
-              {/* DOWNLOAD */}
-              <button
-                onClick={() => {
-                  if (
-                    selectedMode ===
-                    "ocr"
-                  ) {
-                    downloadOCR();
-                  } else {
-                    downloadLayout();
-                  }
-                }}
-                className={`w-full h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 shadow-lg transition
-                  ${
-                    selectedMode ===
-                    "ocr"
+            {/* SUCCESS */}
+            {success && (
+              <div className="space-y-3">
+
+                <div className="bg-green-50 border border-green-200 rounded-2xl py-3 text-green-700 font-semibold flex items-center justify-center gap-2 text-sm">
+                  <CheckCircle2 className="w-5 h-5" />
+                  DOCX Ready
+                </div>
+
+                {/* DOWNLOAD */}
+                <button
+                  onClick={() => {
+                    if (
+                      selectedMode ===
+                      "ocr"
+                    ) {
+                      downloadOCR();
+                    } else {
+                      downloadLayout();
+                    }
+                  }}
+                  className={`w-full h-12 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 shadow-lg transition
+                  ${selectedMode ===
+                      "ocr"
                       ? "bg-gradient-to-r from-purple-500 to-pink-600"
                       : "bg-gradient-to-r from-blue-500 to-cyan-600"
-                  }`}
-              >
-                <Download className="w-5 h-5" />
-                Download DOCX
-              </button>
+                    }`}
+                >
+                  <Download className="w-5 h-5" />
+                  Download DOCX
+                </button>
 
-              {/* AGAIN */}
-              <button
-                onClick={
-                  handleRemove
-                }
-                className="w-full h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Upload Another PDF
-              </button>
-            </div>
-          )}
-        </div>
-      )}
+                {/* AGAIN */}
+                <button
+                  onClick={
+                    handleRemove
+                  }
+                  className="w-full h-12 rounded-2xl border border-gray-200 bg-white font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Upload Another PDF
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
-      {/* FOOTER */}
-     
-    </div>
-          <div className="contentWrapper">
+        {/* FOOTER */}
+
+      </div>
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

@@ -13,6 +13,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 
 export default function URLEncoder() {
@@ -140,6 +141,7 @@ export default function URLEncoder() {
       </div>
     </div>
          <div className="contentWrapper">
+          <RelatedTools/>
             <About />
             <HowToUse />
             <Features />

@@ -19,6 +19,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 // LEVELS
 const COMPRESSION_OPTIONS = {
@@ -56,7 +57,7 @@ function formatBytes(bytes) {
 
   const i = Math.floor(
     Math.log(bytes) /
-      Math.log(k)
+    Math.log(k)
   );
 
   return (
@@ -173,7 +174,7 @@ export default function PdfCompressor() {
             ((file.size -
               blob.size) /
               file.size) *
-              100
+            100
           );
 
         if (reduction < 0) {
@@ -361,13 +362,13 @@ export default function PdfCompressor() {
           fileData={
             file
               ? {
-                  name: file.name,
+                name: file.name,
 
-                  size:
-                    formatBytes(
-                      file.size
-                    ),
-                }
+                size:
+                  formatBytes(
+                    file.size
+                  ),
+              }
               : null
           }
           onChange={
@@ -421,10 +422,9 @@ export default function PdfCompressor() {
                       p-4
                       text-left
                       transition-all
-                      ${
-                        level === key
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 bg-white"
+                      ${level === key
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
                       }
                     `}
                   >
@@ -449,10 +449,9 @@ export default function PdfCompressor() {
                       <div
                         className={`
                           w-5 h-5 rounded-full border-2
-                          ${
-                            level === key
-                              ? "border-blue-500 bg-blue-500"
-                              : "border-gray-300"
+                          ${level === key
+                            ? "border-blue-500 bg-blue-500"
+                            : "border-gray-300"
                           }
                         `}
                       />
@@ -482,6 +481,7 @@ export default function PdfCompressor() {
       </div>
 
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

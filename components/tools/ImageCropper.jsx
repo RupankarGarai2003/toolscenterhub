@@ -27,6 +27,7 @@ import HowToUse from "@/components/tool-content/HowToUse";
 import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function ImageCropper() {
   const [preview, setPreview] =
@@ -245,7 +246,7 @@ export default function ImageCropper() {
         ctx.rotate(
           (rotation *
             Math.PI) /
-            180
+          180
         );
 
         ctx.translate(
@@ -256,9 +257,9 @@ export default function ImageCropper() {
         ctx.drawImage(
           image,
           safeArea / 2 -
-            image.width / 2,
+          image.width / 2,
           safeArea / 2 -
-            image.height / 2
+          image.height / 2
         );
 
         const data =
@@ -279,15 +280,15 @@ export default function ImageCropper() {
           data,
           Math.round(
             0 -
-              safeArea / 2 +
-              image.width / 2 -
-              croppedAreaPixels.x
+            safeArea / 2 +
+            image.width / 2 -
+            croppedAreaPixels.x
           ),
           Math.round(
             0 -
-              safeArea / 2 +
-              image.height / 2 -
-              croppedAreaPixels.y
+            safeArea / 2 +
+            image.height / 2 -
+            croppedAreaPixels.y
           )
         );
 
@@ -434,11 +435,10 @@ export default function ImageCropper() {
                         rounded-2xl
                         text-sm font-semibold
                         transition-all duration-300
-                        ${
-                          ratio ===
+                        ${ratio ===
                           item.value
-                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20 scale-105"
-                            : "bg-white border border-gray-200 hover:border-blue-300"
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20 scale-105"
+                          : "bg-white border border-gray-200 hover:border-blue-300"
                         }
                       `}
                     >
@@ -513,7 +513,7 @@ export default function ImageCropper() {
                   onClick={() =>
                     setRotation(
                       rotation -
-                        90
+                      90
                     )
                   }
                   className="
@@ -534,7 +534,7 @@ export default function ImageCropper() {
                   onClick={() =>
                     setRotation(
                       rotation +
-                        90
+                      90
                     )
                   }
                   className="
@@ -829,6 +829,7 @@ export default function ImageCropper() {
 
       {/* CONTENT */}
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

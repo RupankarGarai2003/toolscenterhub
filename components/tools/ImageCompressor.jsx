@@ -8,7 +8,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
-
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 import {
   Lock,
@@ -586,7 +586,7 @@ export default function ImageCompressor() {
                   Reset
                 </CustomButton>
 
-                <CustomButton variant="download" onClick={handleDownload} animation="bounce"/>
+                <CustomButton variant="download" onClick={handleDownload} animation="bounce" />
 
               </div>
             </div>
@@ -595,6 +595,7 @@ export default function ImageCompressor() {
       </div>
       {/* 🔹 CONTENT SECTION */}
       <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />

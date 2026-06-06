@@ -9,6 +9,7 @@ import Features from "@/components/tool-content/Features";
 import Benefits from "@/components/tool-content/Benefits";
 import FAQ from "@/components/tool-content/FAQ";
 import CustomButton from "../tools/CustomButton";
+import RelatedTools from "@/components/tool-content/RelatedTools";
 
 export default function PDFProtect() {
   const [file, setFile] = useState(null);
@@ -79,90 +80,91 @@ export default function PDFProtect() {
 
   return (
     <>
-    <div className="min-h-screen bg-[#f5f7fb] flex items-center justify-center p-5">
+      <div className="min-h-screen bg-[#f5f7fb] flex items-center justify-center p-5">
 
-      <div className="w-full max-w-2xl bg-white rounded-[32px] shadow-xl p-8">
+        <div className="w-full max-w-2xl bg-white rounded-[32px] shadow-xl p-8">
 
-        {/* HEADER */}
-        <div className="text-center mb-8">
+          {/* HEADER */}
+          <div className="text-center mb-8">
 
-          <div className="w-20 h-20 mx-auto rounded-3xl bg-red-100 text-red-500 flex items-center justify-center mb-4">
-            <Lock size={40} />
+            <div className="w-20 h-20 mx-auto rounded-3xl bg-red-100 text-red-500 flex items-center justify-center mb-4">
+              <Lock size={40} />
+            </div>
+
+            <h1 className="text-4xl font-black text-gray-900">
+              PDF Protect
+            </h1>
+
+            <p className="text-gray-500 mt-3">
+              Secure your PDF files with a password instantly.
+            </p>
           </div>
 
-          <h1 className="text-4xl font-black text-gray-900">
-            PDF Protect
-          </h1>
+          {/* UPLOAD */}
+          <div className="mb-6">
 
-          <p className="text-gray-500 mt-3">
-            Secure your PDF files with a password instantly.
-          </p>
-        </div>
+            <label className="border-2 border-dashed border-gray-300 rounded-3xl h-[180px] flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition">
 
-        {/* UPLOAD */}
-        <div className="mb-6">
+              <Upload size={42} className="mb-3 text-gray-500" />
 
-          <label className="border-2 border-dashed border-gray-300 rounded-3xl h-[180px] flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition">
+              <p className="font-semibold text-lg">
+                Upload PDF File
+              </p>
 
-            <Upload size={42} className="mb-3 text-gray-500" />
+              <p className="text-sm text-gray-500 mt-1">
+                Select your PDF document
+              </p>
 
-            <p className="font-semibold text-lg">
-              Upload PDF File
-            </p>
+              <input
+                type="file"
+                hidden
+                accept=".pdf"
+                onChange={handleFile}
+              />
+            </label>
 
-            <p className="text-sm text-gray-500 mt-1">
-              Select your PDF document
-            </p>
+            {file && (
+              <div className="mt-4 bg-gray-50 rounded-2xl p-4 text-sm font-medium">
+                {file.name}
+              </div>
+            )}
+          </div>
+
+          {/* PASSWORD */}
+          <div className="mb-8">
+
+            <label className="font-bold text-lg mb-3 block">
+              Enter Password
+            </label>
 
             <input
-              type="file"
-              hidden
-              accept=".pdf"
-              onChange={handleFile}
+              type="password"
+              placeholder="Enter secure password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border-2 border-gray-200 rounded-2xl px-5 py-4 outline-none focus:ring-4 focus:ring-red-100"
             />
-          </label>
+          </div>
 
-          {file && (
-            <div className="mt-4 bg-gray-50 rounded-2xl p-4 text-sm font-medium">
-              {file.name}
-            </div>
-          )}
+          {/* ACTION */}
+          <button
+            onClick={protectPDF}
+            disabled={loading}
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg hover:opacity-90 transition"
+          >
+            {loading ? (
+              "Protecting PDF..."
+            ) : (
+              <>
+                <ShieldCheck size={22} />
+                Protect PDF
+              </>
+            )}
+          </button>
         </div>
-
-        {/* PASSWORD */}
-        <div className="mb-8">
-
-          <label className="font-bold text-lg mb-3 block">
-            Enter Password
-          </label>
-
-          <input
-            type="password"
-            placeholder="Enter secure password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border-2 border-gray-200 rounded-2xl px-5 py-4 outline-none focus:ring-4 focus:ring-red-100"
-          />
-        </div>
-
-        {/* ACTION */}
-        <button
-          onClick={protectPDF}
-          disabled={loading}
-          className="w-full h-14 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg hover:opacity-90 transition"
-        >
-          {loading ? (
-            "Protecting PDF..."
-          ) : (
-            <>
-              <ShieldCheck size={22} />
-              Protect PDF
-            </>
-          )}
-        </button>
       </div>
-    </div>
-          <div className="contentWrapper">
+      <div className="contentWrapper">
+        <RelatedTools />
         <About />
         <HowToUse />
         <Features />
