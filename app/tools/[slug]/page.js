@@ -319,6 +319,54 @@ export default async function Page({
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is this tool free to use?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, this tool is completely free to use."
+        }
+      },
+
+      {
+        "@type": "Question",
+        name: "Are my files secure?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Files are processed securely and are not permanently stored."
+        }
+      }
+    ]
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+
+    name: toolData.name,
+
+    description: toolData.description,
+
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Upload File"
+      },
+      {
+        "@type": "HowToStep",
+        name: "Process File"
+      },
+      {
+        "@type": "HowToStep",
+        name: "Download Result"
+      }
+    ]
+  };
   return (
     <>
       {/* Software Schema */}
@@ -353,7 +401,25 @@ export default async function Page({
             ),
         }}
       />
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqSchema
+          ),
+        }}
+      />
 
+      {/* HowTo Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            howToSchema
+          ),
+        }}
+      />
       <div className="p-6">
         <ToolHeading
           title={getDynamicHeading(

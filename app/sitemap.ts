@@ -1,6 +1,48 @@
 import type { MetadataRoute } from "next";
 import { tools } from "@/lib/toolsList";
-import { seoVariants } from "@/utils/toolVariantsSeo";
+
+const platformVariants = [
+  "for-instagram",
+  "for-facebook",
+  "for-whatsapp",
+  "for-youtube",
+  "for-linkedin",
+  "for-twitter",
+  "for-tiktok",
+  "for-pinterest",
+];
+
+const sizeVariants = [
+  "under-20kb",
+  "under-50kb",
+  "under-100kb",
+  "under-150kb",
+  "under-200kb",
+  "under-300kb",
+  "under-500kb",
+  "under-1mb",
+  "under-2mb",
+  "under-5mb",
+];
+
+const documentVariants = [
+  "passport-photo",
+  "signature",
+  "aadhaar-card",
+  "pan-card",
+  "resume",
+  "cv",
+  "thumbnail",
+  "banner",
+  "logo",
+  "profile-photo",
+];
+
+const seoVariants = [
+  ...platformVariants,
+  ...sizeVariants,
+  ...documentVariants,
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
@@ -18,8 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ...seoVariants.map(
         (variant) => ({
           url: `${baseUrl}/tools/${tool.slug}-${variant}`,
-          lastModified:
-            new Date(),
+          lastModified: new Date(),
           changeFrequency:
             "weekly" as const,
           priority: 0.7,

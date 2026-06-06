@@ -3,9 +3,12 @@
 import { useParams } from "next/navigation";
 import styles from "../../components/Styles/tool-component/About.module.css";
 import getToolSlug from "@/utils/getToolSlug";
+  import {
+  getVariantContent,
+} from "@/utils/toolVariantContent";
 
 const aboutContent = {
-  "image-resizer": {
+  "image-resizer":{
     title: "About Image Resizer",
     content: `
         Image Resizer is a free online tool that allows you to resize JPG, PNG, and WEBP images quickly without installing any software. Whether you need to adjust image dimensions for websites, social media posts, email attachments, online forms, or digital marketing campaigns, our tool makes the process simple and efficient.
@@ -372,9 +375,24 @@ export default function About() {
   const currentSlug =
     getToolSlug(rawSlug);
 
-  const tool =
-    aboutContent[currentSlug];
-  if (!tool) return null;
+
+
+const baseTool =
+  aboutContent[currentSlug];
+
+const variantTool =
+  getVariantContent(
+    baseTool?.title?.replace(
+      "About ",
+      ""
+    ),
+    rawSlug
+  );
+
+const tool =
+  variantTool || baseTool;
+
+if (!tool) return null;
 
 
   return (

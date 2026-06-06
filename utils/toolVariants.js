@@ -751,6 +751,7 @@ optimizedimage: "Optimized Image",
 
 // Extra
 online:"online",
+ocr:"OCR",
 
 };
 
