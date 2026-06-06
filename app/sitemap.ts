@@ -1,45 +1,42 @@
 import type { MetadataRoute } from "next";
 import { tools } from "@/lib/toolsList";
+import { seoVariants } from "@/utils/toolVariantsSeo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
     "https://toolscenterhub.com";
 
-  const currentDate =
-    new Date();
+  const toolRoutes = tools.flatMap(
+    (tool) => [
+      {
+        url: `${baseUrl}/tools/${tool.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      },
 
-  const staticPages = [
-    "",
-    "/about",
-    "/contact",
-    "/help",
-    "/privacy-policy",
-    "/terms",
-    "/disclaimer",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified:
-      currentDate,
-    changeFrequency:
-      "monthly" as const,
-    priority:
-      route === ""
-        ? 1
-        : 0.7,
-  }));
-
-  const toolPages =
-    tools.map((tool) => ({
-      url: `${baseUrl}/tools/${tool.slug}`,
-      lastModified:
-        currentDate,
-      changeFrequency:
-        "weekly" as const,
-      priority: 0.8,
-    }));
+      ...seoVariants.map(
+        (variant) => ({
+          url: `${baseUrl}/tools/${tool.slug}-${variant}`,
+          lastModified:
+            new Date(),
+          changeFrequency:
+            "weekly" as const,
+          priority: 0.7,
+        })
+      ),
+    ]
+  );
 
   return [
-    ...staticPages,
-    ...toolPages,
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency:
+        "daily",
+      priority: 1,
+    },
+
+    ...toolRoutes,
   ];
 }
