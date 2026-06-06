@@ -3,6 +3,7 @@ import * as ToolComponents from "@/components/tools";
 import { getSeoData } from "@/utils/seo";
 import { redirect } from "next/navigation";
 import ToolHeading from "@/components/tools/ToolHeading";
+import { getDynamicHeading } from "@/utils/toolVariants";
 
 function parseSlug(slug) {
   const decoded = decodeURIComponent(slug)
@@ -355,24 +356,11 @@ export default async function Page({
 
       <div className="p-6">
         <ToolHeading
-          title={
-            slug.includes("instagram")
-              ? "Image Resizer For Instagram"
-              : slug.includes("facebook")
-                ? "Image Resizer For Facebook"
-                : slug.includes("whatsapp")
-                  ? "Image Resizer For WhatsApp"
-                  : slug.includes("linkedin")
-                    ? "Image Resizer For LinkedIn"
-                    : slug.includes("youtube")
-                      ? "Image Resizer For YouTube Thumbnail"
-                      : limit
-                        ? `${toolData.name} Under ${limit}KB`
-                        : toolData.name
-          }
-          subtitle={
-            toolData.description
-          }
+          title={getDynamicHeading(
+            toolData.name,
+            slug
+          )}
+          subtitle={toolData.description}
           gradient={true}
         />
 
