@@ -2,22 +2,44 @@ import type { MetadataRoute } from "next";
 import { tools } from "@/lib/toolsList";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://toolscenterhub.com";
+  const baseUrl =
+    "https://toolscenterhub.com";
 
-  const toolRoutes = tools.map((tool) => ({
-    url: `${baseUrl}/tools/${tool.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
+  const currentDate =
+    new Date();
+
+  const staticPages = [
+    "",
+    "/about",
+    "/contact",
+    "/help",
+    "/privacy-policy",
+    "/terms",
+    "/disclaimer",
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified:
+      currentDate,
+    changeFrequency:
+      "monthly" as const,
+    priority:
+      route === ""
+        ? 1
+        : 0.7,
   }));
 
+  const toolPages =
+    tools.map((tool) => ({
+      url: `${baseUrl}/tools/${tool.slug}`,
+      lastModified:
+        currentDate,
+      changeFrequency:
+        "weekly" as const,
+      priority: 0.8,
+    }));
+
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    ...toolRoutes,
+    ...staticPages,
+    ...toolPages,
   ];
 }

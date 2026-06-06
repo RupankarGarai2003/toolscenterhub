@@ -139,11 +139,73 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const websiteSchema = {
+    "@context":
+      "https://schema.org",
+
+    "@type": "WebSite",
+
+    name: "Tools Center Hub",
+
+    url:
+      "https://toolscenterhub.com",
+
+    potentialAction: {
+      "@type":
+        "SearchAction",
+
+      target:
+        "https://toolscenterhub.com/tools/{search_term_string}",
+
+      "query-input":
+        "required name=search_term_string",
+    },
+  };
+
+  const organizationSchema = {
+    "@context":
+      "https://schema.org",
+
+    "@type":
+      "Organization",
+
+    name:
+      "Tools Center Hub",
+
+    url:
+      "https://toolscenterhub.com",
+
+    logo:
+      "https://toolscenterhub.com/logo.png",
+  };
+
   return (
     <html lang="en">
       <body
         className={`${montserrat.variable} ${inter.variable} bg-gray-50 text-gray-800`}
       >
+        {/* Website Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html:
+              JSON.stringify(
+                websiteSchema
+              ),
+          }}
+        />
+
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html:
+              JSON.stringify(
+                organizationSchema
+              ),
+          }}
+        />
+
         <Header />
 
         <main className="min-h-screen">

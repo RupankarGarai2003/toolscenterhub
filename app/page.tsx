@@ -202,8 +202,139 @@ export default function Home() {
               </div>
             </Link>
 
+
           );
         })}
+      </section>
+      <section className="seo-section">
+        <h2>
+          Why Choose ToolsCenterHub?
+        </h2>
+
+        <p>
+          ToolsCenterHub provides free
+          online tools for image editing,
+          PDF management, file conversion,
+          developer utilities, and
+          productivity tasks. Our tools
+          work directly in your browser
+          without requiring downloads,
+          installation, or registration.
+        </p>
+
+        <p>
+          Whether you need to resize
+          images, compress files, merge
+          PDFs, convert documents, format
+          JSON, generate QR codes, or
+          create secure passwords,
+          ToolsCenterHub offers fast,
+          secure, and easy-to-use
+          solutions.
+        </p>
+      </section>
+
+      <section className="seo-section">
+        <h2>
+          Popular Tool Categories
+        </h2>
+
+        <ul className="seo-list">
+          <li>
+            Image Tools – Resize,
+            compress, crop, and convert
+            images.
+          </li>
+
+          <li>
+            PDF Tools – Merge, split,
+            convert, and optimize PDF
+            files.
+          </li>
+
+          <li>
+            Developer Tools – JSON
+            formatter, validator, Base64
+            utilities, and code minifiers.
+          </li>
+
+          <li>
+            Utility Tools – Password
+            generator, QR code generator,
+            word counter, and more.
+          </li>
+        </ul>
+      </section>
+
+      <section className="seo-section">
+        <h2>
+          Free Online Tools For Everyday
+          Tasks
+        </h2>
+
+        <p>
+          ToolsCenterHub is an all-in-one
+          platform offering free online
+          tools for students, developers,
+          designers, marketers,
+          businesses, and everyday users.
+        </p>
+
+        <p>
+          Our collection includes image
+          compressors, image resizers,
+          PDF converters, PDF mergers,
+          JSON formatters, URL encoders,
+          Base64 tools, QR code
+          generators, and many other
+          utilities designed to save time
+          and improve productivity.
+        </p>
+
+        <p>
+          All tools are optimized for
+          speed and simplicity, allowing
+          users to complete tasks quickly
+          from desktop and mobile
+          devices.
+        </p>
+      </section>
+
+      <section className="seo-section">
+        <h2>
+          Frequently Asked Questions
+        </h2>
+
+        <div className="faq-home">
+          <h3>
+            Are these tools free?
+          </h3>
+
+          <p>
+            Yes. All tools on
+            ToolsCenterHub are completely
+            free to use.
+          </p>
+
+          <h3>
+            Do I need an account?
+          </h3>
+
+          <p>
+            No registration or login is
+            required.
+          </p>
+
+          <h3>
+            Is my data secure?
+          </h3>
+
+          <p>
+            We prioritize privacy and do
+            not permanently store user
+            files.
+          </p>
+        </div>
       </section>
     </div>
   );

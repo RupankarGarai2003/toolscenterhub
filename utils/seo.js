@@ -9,6 +9,7 @@ function formatName(slug) {
     );
 }
 
+
 const customSeo = {
   // IMAGE TOOLS
 
@@ -285,32 +286,157 @@ const customSeo = {
 
 export function getSeoData(
   tool,
-  limit
+  limit,
+  rawSlug = ""
 ) {
   const name =
     formatName(tool);
 
-  // Image Compressor with Size Target
+  const slug =
+    rawSlug.toLowerCase();
+
+  /* IMAGE RESIZER - SIZE VARIANTS */
+
   if (
-    tool ===
-      "image-compressor" &&
+    tool === "image-resizer" &&
     limit
   ) {
     return {
-      title: `Compress Image to ${limit}KB Online Free`,
+      title: `Resize Image Under ${limit}KB Online Free`,
 
-      description: `Compress image to ${limit}KB without losing quality. Fast, secure and free online tool.`,
+      description: `Resize image under ${limit}KB online without losing quality. Perfect for job applications, government forms, passport photos, exam forms and website uploads.`,
 
-      keywords: `compress image to ${limit}kb, image compressor, reduce image size`,
+      keywords: `
+        resize image under ${limit}kb,
+        image resizer ${limit}kb,
+        reduce image size ${limit}kb,
+        compress image under ${limit}kb,
+        online image resizer
+      `,
     };
   }
+
+  /* IMAGE COMPRESSOR - SIZE VARIANTS */
+
+  if (
+    tool === "image-compressor" &&
+    limit
+  ) {
+    return {
+      title: `Compress Image To ${limit}KB Online Free`,
+
+      description: `Compress image to ${limit}KB while maintaining image quality. Fast, secure and free online image compression tool.`,
+
+      keywords: `
+        compress image to ${limit}kb,
+        image compressor ${limit}kb,
+        reduce image size,
+        image compression online
+      `,
+    };
+  }
+
+  /* INSTAGRAM */
+
+  if (
+    tool === "image-resizer" &&
+    slug.includes("instagram")
+  ) {
+    return {
+      title:
+        "Image Resizer For Instagram Online Free",
+
+      description:
+        "Resize images for Instagram posts, stories, reels and profile photos online. Fast and free image resizer.",
+
+      keywords:
+        "instagram image resizer, resize image for instagram, instagram image size, instagram photo resize",
+    };
+  }
+
+  /* FACEBOOK */
+
+  if (
+    tool === "image-resizer" &&
+    slug.includes("facebook")
+  ) {
+    return {
+      title:
+        "Image Resizer For Facebook Online Free",
+
+      description:
+        "Resize images for Facebook posts, cover photos and profile pictures online instantly.",
+
+      keywords:
+        "facebook image resizer, resize image for facebook, facebook image size",
+    };
+  }
+
+  /* WHATSAPP */
+
+  if (
+    tool === "image-resizer" &&
+    slug.includes("whatsapp")
+  ) {
+    return {
+      title:
+        "Image Resizer For WhatsApp Online Free",
+
+      description:
+        "Resize images for WhatsApp profile photos, status images and sharing. Fast and free online tool.",
+
+      keywords:
+        "whatsapp image resizer, resize image for whatsapp, whatsapp photo resize",
+    };
+  }
+
+  /* LINKEDIN */
+
+  if (
+    tool === "image-resizer" &&
+    slug.includes("linkedin")
+  ) {
+    return {
+      title:
+        "Image Resizer For LinkedIn Online Free",
+
+      description:
+        "Resize images for LinkedIn posts, banners and profile pictures with the correct dimensions.",
+
+      keywords:
+        "linkedin image resizer, resize image for linkedin, linkedin banner size",
+    };
+  }
+
+  /* YOUTUBE */
+
+  if (
+    tool === "image-resizer" &&
+    slug.includes("youtube")
+  ) {
+    return {
+      title:
+        "Image Resizer For YouTube Thumbnail Online Free",
+
+      description:
+        "Resize images for YouTube thumbnails with the perfect dimensions and quality.",
+
+      keywords:
+        "youtube thumbnail resizer, resize image for youtube thumbnail, youtube image size",
+    };
+  }
+
+  /* CUSTOM TOOL SEO */
 
   if (customSeo[tool]) {
     return customSeo[tool];
   }
 
+  /* DEFAULT */
+
   return {
-    title: `${name} Online Free`,
+    title:
+      `${name} Online Free`,
 
     description: `Use our free ${name} tool online. Fast, secure and works directly in your browser with no signup required.`,
 
