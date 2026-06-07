@@ -107,7 +107,7 @@ export async function generateMetadata({
       url,
 
       siteName:
-        "Tools Center Hub",
+        "ToolsCenterHub",
 
       type: "website",
 
@@ -312,7 +312,7 @@ export default async function Page({
         "WebSite",
 
       name:
-        "Tools Center Hub",
+        "ToolsCenterHub",
 
       url:
         "https://toolscenterhub.com",

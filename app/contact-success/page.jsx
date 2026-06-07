@@ -9,10 +9,10 @@ import styles from "./ContactSuccess.module.css";
 
 export const metadata = {
   title:
-    "Message Sent Successfully | Tools Center Hub",
+    "Message Sent Successfully | ToolsCenterHub",
 
   description:
-    "Your message has been successfully sent to Tools Center Hub.",
+    "Your message has been successfully sent to ToolsCenterHub.",
 };
 
 export default function ContactSuccess() {

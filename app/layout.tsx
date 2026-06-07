@@ -27,9 +27,9 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Tools Center Hub - Free Online PDF, Image & Utility Tools",
+      "ToolsCenterHub - Free Online PDF, Image & Utility Tools",
     template:
-      "%s | Tools Center Hub",
+      "%s | ToolsCenterHub",
   },
 
   description:
@@ -57,14 +57,14 @@ export const metadata: Metadata = {
 
   authors: [
     {
-      name: "Tools Center Hub",
+      name: "ToolsCenterHub",
       url: "https://toolscenterhub.com",
     },
   ],
 
-  creator: "Tools Center Hub",
+  creator: "ToolsCenterHub",
 
-  publisher: "Tools Center Hub",
+  publisher: "ToolsCenterHub",
 
   category: "Technology",
 
@@ -90,15 +90,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Tools Center Hub - Free Online PDF, Image & Utility Tools",
+       "ToolsCenterHub - Free Online PDF, Image & Developer Tools",
 
     description:
       "Free online tools for PDF conversion, image editing, compression, QR code generation, developer utilities, and more.",
 
     url: "https://toolscenterhub.com",
 
-    siteName:
-      "Tools Center Hub",
+    siteName: "ToolsCenterHub",
 
     locale: "en_US",
 
@@ -109,7 +108,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Tools Center Hub",
+        alt: "ToolsCenterHub",
       },
     ],
   },
@@ -119,7 +118,7 @@ export const metadata: Metadata = {
       "summary_large_image",
 
     title:
-      "Tools Center Hub - Free Online PDF, Image & Utility Tools",
+      "ToolsCenterHub - Free Online PDF, Image & Utility Tools",
 
     description:
       "Free online tools for PDF conversion, image editing, compression, QR code generation, developer utilities, and more.",
@@ -145,7 +144,7 @@ export default function RootLayout({
 
     "@type": "WebSite",
 
-    name: "Tools Center Hub",
+    name: "ToolsCenterHub",
 
     url:
       "https://toolscenterhub.com",
@@ -170,7 +169,7 @@ export default function RootLayout({
       "Organization",
 
     name:
-      "Tools Center Hub",
+      "ToolsCenterHub",
 
     url:
       "https://toolscenterhub.com",

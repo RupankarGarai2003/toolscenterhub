@@ -13,10 +13,10 @@ import {
 
 export const metadata = {
   title:
-    "Privacy Policy | Tools Center Hub",
+    "Privacy Policy | ToolsCenterHub",
 
   description:
-    "Read the Privacy Policy of Tools Center Hub. Learn how we collect, use, and protect user information while using our online tools.",
+    "Read the Privacy Policy of ToolsCenterHub. Learn how we collect, use, and protect user information while using our online tools.",
 
   robots: {
     index: true,

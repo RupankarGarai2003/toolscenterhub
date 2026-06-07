@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 
 // export const metadata = {
 //   title:
-//     "Help Center | Tools Center Hub",
+//     "Help Center | ToolsCenterHub",
 //   description:
 //     "Find answers to common questions about image tools, PDF tools, developer utilities, file conversion, troubleshooting, and support.",
 // };

@@ -2,10 +2,10 @@ import styles from "./Terms.module.css";
 
 export const metadata = {
   title:
-    "Terms & Conditions | Tools Center Hub",
+    "Terms & Conditions | ToolsCenterHub",
 
   description:
-    "Read the Terms and Conditions governing the use of Tools Center Hub and its online tools and services.",
+    "Read the Terms and Conditions governing the use of ToolsCenterHub and its online tools and services.",
 
   robots: {
     index: true,

@@ -2,10 +2,10 @@ import styles from "./Disclaimer.module.css";
 
 export const metadata = {
   title:
-    "Disclaimer | Tools Center Hub",
+    "Disclaimer | ToolsCenterHub",
 
   description:
-    "Read the Disclaimer for Tools Center Hub regarding the use of our online tools, services, content, and website.",
+    "Read the Disclaimer for ToolsCenterHub regarding the use of our online tools, services, content, and website.",
 
   robots: {
     index: true,
