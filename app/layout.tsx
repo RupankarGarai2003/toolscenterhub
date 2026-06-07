@@ -21,9 +21,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+
   metadataBase: new URL(
     "https://toolscenterhub.com"
   ),
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 
   title: {
     default:
@@ -90,7 +96,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-       "ToolsCenterHub - Free Online PDF, Image & Developer Tools",
+      "ToolsCenterHub - Free Online PDF, Image & Developer Tools",
 
     description:
       "Free online tools for PDF conversion, image editing, compression, QR code generation, developer utilities, and more.",
@@ -175,7 +181,7 @@ export default function RootLayout({
       "https://toolscenterhub.com",
 
     logo:
-      "https://toolscenterhub.com/logo.png",
+      "https://toolscenterhub.com/favicon.ico",
   };
 
   return (
