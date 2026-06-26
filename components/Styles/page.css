@@ -275,53 +275,39 @@ background-color: ; */
 
 .faq-home {
     max-width: 900px;
-
     margin: auto;
-
-    display: grid;
-
-    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.faq-home div {
-    background: rgba(255, 255, 255, 0.55);
-
-    backdrop-filter: blur(20px);
-
+.faq-item {
+    background: rgba(255,255,255,.6);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(148,163,184,.15);
     border-radius: 16px;
-
     padding: 24px;
-
-    border: 1px solid rgba(148, 163, 184, 0.15);
-
-    transition: 0.3s;
+    transition: .3s;
 }
 
-.faq-home div:hover {
+.faq-item:hover{
     transform: translateY(-4px);
-
-    box-shadow:
-        0 12px 25px rgba(79, 70, 229, 0.08);
+    box-shadow:0 12px 30px rgba(79,70,229,.08);
 }
 
-.faq-home h3 {
-    font-size: 17px;
-
-    font-weight: 700;
-
-    color: #111827;
-
-    margin-bottom: 10px;
-
-    font-family: var(--font-heading);
+.faq-item h3{
+    font-size:18px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:12px;
+    font-family:var(--font-heading);
 }
 
-.faq-home p {
-    margin: 0;
-
-    color: #6b7280;
-
-    line-height: 1.8;
+.faq-item p{
+    margin:0;
+    color:#4b5563;
+    line-height:1.8;
+    font-size:15px;
 }
 
 /* ===========================

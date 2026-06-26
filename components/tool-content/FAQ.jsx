@@ -577,8 +577,10 @@ const toolFAQs = {
 
 
 };
-
-export default function FAQ() {
+export default function FAQ({
+  title = "Frequently Asked Questions",
+  customFaqs = null,
+}) {
   const { slug } = useParams();
 
   const [open, setOpen] = useState(null);
@@ -587,29 +589,32 @@ export default function FAQ() {
     ? slug[0]
     : slug;
 
-  const currentSlug =
-    getToolSlug(rawSlug);
+  // Homepage doesn't have a slug
+  const currentSlug = rawSlug
+    ? getToolSlug(rawSlug)
+    : "";
 
+  const variantFaqs = rawSlug
+    ? getVariantFaqs(
+        currentSlug.replace(/-/g, " "),
+        rawSlug
+      )
+    : [];
 
-  const variantFaqs =
-    getVariantFaqs(
-      currentSlug
-        .replace(/-/g, " "),
-      rawSlug
-    );
-
-  const faqs = [
-    ...variantFaqs,
-    ...(toolFAQs[currentSlug] || []),
-    ...commonFAQ,
-  ];
+  const faqs =
+    customFaqs ||
+    [
+      ...variantFaqs,
+      ...(toolFAQs[currentSlug] || []),
+      ...commonFAQ,
+    ];
 
   if (!faqs.length) return null;
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>
-        Frequently Asked Questions
+        {title}
       </h2>
 
       <div className={styles.grid}>
