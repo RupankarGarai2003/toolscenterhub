@@ -287,6 +287,7 @@ const customSeo = {
 export function getSeoData(
   tool,
   limit,
+  unit,
   rawSlug = ""
 ) {
   const name =
@@ -297,24 +298,23 @@ export function getSeoData(
 
   /* IMAGE RESIZER - SIZE VARIANTS */
 
-  if (
-    tool === "image-resizer" &&
-    limit
-  ) {
-    return {
-      title: `Resize Image Under ${limit}KB Online Free`,
+  if (tool === "image-resizer" && limit) {
+  const unit = slug.includes("mb") ? "MB" : "KB";
 
-      description: `Resize image under ${limit}KB online without losing quality. Perfect for job applications, government forms, passport photos, exam forms and website uploads.`,
+  return {
+    title: `Resize Image Under ${limit}${unit} Online Free`,
 
-      keywords: `
-        resize image under ${limit}kb,
-        image resizer ${limit}kb,
-        reduce image size ${limit}kb,
-        compress image under ${limit}kb,
-        online image resizer
-      `,
-    };
-  }
+    description: `Resize image under ${limit}${unit} online without losing quality. Perfect for job applications, government forms, passport photos, exam forms, email attachments, and website uploads.`,
+
+    keywords: `
+      resize image under ${limit}${unit.toLowerCase()},
+      image resizer ${limit}${unit.toLowerCase()},
+      reduce image size ${limit}${unit.toLowerCase()},
+      compress image under ${limit}${unit.toLowerCase()},
+      online image resizer
+    `,
+  };
+}
 
   /* IMAGE COMPRESSOR - SIZE VARIANTS */
 
@@ -323,7 +323,7 @@ export function getSeoData(
     limit
   ) {
     return {
-      title: `Compress Image To ${limit}KB Online Free`,
+      title: `Compress Image To ${limit}${unit} Online Free`,
 
       description: `Compress image to ${limit}KB while maintaining image quality. Fast, secure and free online image compression tool.`,
 

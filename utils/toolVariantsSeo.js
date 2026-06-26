@@ -44,6 +44,7 @@ export const seoVariants = [
   "jee",
   "upsc",
   "examform",
+  "exam",
 
   // Image use cases
   "thumbnail",

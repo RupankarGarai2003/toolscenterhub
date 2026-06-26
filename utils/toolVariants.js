@@ -184,15 +184,18 @@ encoder: "encoder",
 
 };
 
-/* Extract platform name from slug */
+/* Extract variant from slug */
 
 export function getVariantName(slug = "") {
-  const slugParts = slug
-    .toLowerCase()
-    .split("-");
+  const lowerSlug = slug.toLowerCase();
 
-  for (const [key, value] of Object.entries(toolVariants)) {
-    if (slugParts.includes(key.toLowerCase())) {
+  // Match longest variants first
+  const variants = Object.entries(toolVariants).sort(
+    ([a], [b]) => b.length - a.length
+  );
+
+  for (const [key, value] of variants) {
+    if (lowerSlug.includes(key.toLowerCase())) {
       return value;
     }
   }
@@ -205,21 +208,55 @@ export function getVariantName(slug = "") {
 export function getSizeVariant(slug = "") {
   const lowerSlug = slug.toLowerCase();
 
-  const kbMatch =
-    lowerSlug.match(/(\d+)\s*kb/);
+  const underKb = lowerSlug.match(/under-(\d+)kb/);
+  if (underKb) {
+    return {
+      type: "under",
+      value: underKb[1],
+      unit: "KB",
+    };
+  }
 
+  const underMb = lowerSlug.match(/under-(\d+)mb/);
+  if (underMb) {
+    return {
+      type: "under",
+      value: underMb[1],
+      unit: "MB",
+    };
+  }
+
+  const toKb = lowerSlug.match(/to-(\d+)kb/);
+  if (toKb) {
+    return {
+      type: "to",
+      value: toKb[1],
+      unit: "KB",
+    };
+  }
+
+  const toMb = lowerSlug.match(/to-(\d+)mb/);
+  if (toMb) {
+    return {
+      type: "to",
+      value: toMb[1],
+      unit: "MB",
+    };
+  }
+
+  const kbMatch = lowerSlug.match(/(\d+)kb/);
   if (kbMatch) {
     return {
+      type: "size",
       value: kbMatch[1],
       unit: "KB",
     };
   }
 
-  const mbMatch =
-    lowerSlug.match(/(\d+)\s*mb/);
-
+  const mbMatch = lowerSlug.match(/(\d+)mb/);
   if (mbMatch) {
     return {
+      type: "size",
       value: mbMatch[1],
       unit: "MB",
     };
@@ -230,22 +267,33 @@ export function getSizeVariant(slug = "") {
 
 /* Generate Dynamic Heading */
 
-export function getDynamicHeading(
-  toolName,
-  slug
-) {
-  const platform =
-    getVariantName(slug);
+export function getDynamicHeading(toolName, slug) {
+  const variant = getVariantName(slug);
+  const size = getSizeVariant(slug);
 
-  const size =
-    getSizeVariant(slug);
-
-  if (platform) {
-    return `${toolName} For ${platform}`;
+  if (size?.type === "under") {
+    return `${toolName} Under ${size.value}${size.unit}`;
   }
 
-  if (size) {
-    return `${toolName} Under ${size.value}${size.unit}`;
+  if (size?.type === "to") {
+    return `${toolName} To ${size.value}${size.unit}`;
+  }
+
+  if (variant?.startsWith("for-")) {
+    const label = variant
+      .replace("for-", "")
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+    return `${toolName} For ${label}`;
+  }
+
+  if (variant) {
+    const label = variant
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+    return `${toolName} ${label}`;
   }
 
   return toolName;

@@ -31,14 +31,20 @@ function parseSlug(slug) {
       /(\d+)\s*mb/i
     );
 
-  return {
-    tool: matchedTool.slug,
+return {
+  tool: matchedTool.slug,
 
-    limit:
-      kbMatch?.[1] ||
-      mbMatch?.[1] ||
-      null,
-  };
+  limit:
+    kbMatch?.[1] ||
+    mbMatch?.[1] ||
+    null,
+
+  unit: kbMatch
+    ? "KB"
+    : mbMatch
+    ? "MB"
+    : null,
+};
 }
 
 /* ===========================
@@ -58,14 +64,14 @@ export async function generateMetadata({
     ? rawSlug[0]
     : rawSlug;
 
-  const { tool, limit } =
-    parseSlug(slug);
+ const { tool, limit, unit } = parseSlug(slug);
 
-  const seo = getSeoData(
-    tool,
-    limit,
-    slug
-  );
+const seo = getSeoData(
+  tool,
+  limit,
+  unit,
+  slug
+);
 
   const url = `https://toolscenterhub.com/tools/${slug}`;
 
