@@ -28,6 +28,7 @@ import {
   Repeat,
   LucideIcon,
   Activity,
+  Calendar,
 } from "lucide-react";
 
 /* ICON MAP */
@@ -65,10 +66,14 @@ const iconMap: Record<string, LucideIcon> = {
   "qr code generator": QrCode,
   "word counter": Text,
   "bmi calculator": Activity,
+  "age calculator": Calendar,
 };
 
-function getCategory(name: string) {
-  const n = name.toLowerCase();
+function getCategory(tool: any) {
+  // Use explicit category if available
+  if (tool.category) return tool.category;
+
+  const n = tool.name.toLowerCase();
 
   if (n.includes("image") || n.includes("jpg") || n.includes("png"))
     return "image";
@@ -86,7 +91,6 @@ function getCategory(name: string) {
 
   if (n.includes("to")) return "converter";
 
-  if (n.includes("calculator")) return "calculator";
   return "tool";
 }
 
@@ -157,12 +161,13 @@ export default function Home() {
       ? tools
       : activeTab === "choice"
         ? tools.filter((t) => userChoiceSlugs.includes(t.slug))
-        : tools.filter((t) => getCategory(t.name) === activeTab);
+        : tools.filter((t) => getCategory(t) === activeTab);
+
   console.log("Active Tab:", activeTab);
 
   console.log(
     "Filtered Tools:",
-    tools.filter((t) => getCategory(t.name) === activeTab)
+    tools.filter((t) => getCategory(t) === activeTab)
   );
   const tabs = [
     { label: "All", value: "all" },

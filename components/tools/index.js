@@ -33,3 +33,5 @@ export { default as WordToPdf } from "./WordToPdf";
 
 
 export { default as BMICalculator } from "./BMICalculator";
+export { default as AgeCalculator } from "./AgeCalculator";
+export { default as PercentageCalculator } from "./PercentageCalculator";

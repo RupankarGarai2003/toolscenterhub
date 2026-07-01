@@ -43,18 +43,22 @@ export default function Header() {
   }, []);
 
   /* FILTER */
-  const getTools = (type) => {
-    return tools.filter((t) => t.slug.includes(type));
-  };
+  const getTools = (category) => {
+  return tools.filter((t) => {
+    if (t.category) return t.category === category;
 
-  const menus = [
-    { name: "IMAGE", key: "image" },
-    { name: "PDF", key: "pdf" },
-    { name: "DEV", key: "json" },
-    { name: "UTILITY", key: "password" },
-    { name: "CONVERTERS", key: "to" },
-    { name: "CALCULATORS", key: "calculator" },
-  ];
+    // Fallback for tools without a category
+    return t.slug.includes(category);
+  });
+};
+ const menus = [
+  { name: "IMAGE", key: "image" },
+  { name: "PDF", key: "pdf" },
+  { name: "DEV", key: "json" },
+  { name: "UTILITY", key: "password" },
+  { name: "CONVERTERS", key: "to" },
+  { name: "CALCULATORS", key: "calculator" },
+];
 
   return (
     <header className="header">

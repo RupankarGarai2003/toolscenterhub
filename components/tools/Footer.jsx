@@ -46,6 +46,7 @@ export default function Footer() {
           <p><MapPin size={14} /> India</p>
           <p><Mail size={14} /> support@toolscenterhub.com</p>
           <p><Phone size={14} /> +91 8391808784</p>
+          <p><Phone size={14} /> +91 7679109146</p>
         </div>
 
       </div>
