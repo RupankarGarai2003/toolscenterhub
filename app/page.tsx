@@ -27,6 +27,7 @@ import {
   Link as LinkIcon,
   Repeat,
   LucideIcon,
+  Activity,
 } from "lucide-react";
 
 /* ICON MAP */
@@ -63,6 +64,7 @@ const iconMap: Record<string, LucideIcon> = {
   "password generator": Key,
   "qr code generator": QrCode,
   "word counter": Text,
+  "bmi calculator": Activity,
 };
 
 function getCategory(name: string) {
@@ -84,6 +86,7 @@ function getCategory(name: string) {
 
   if (n.includes("to")) return "converter";
 
+  if (n.includes("calculator")) return "calculator";
   return "tool";
 }
 
@@ -91,55 +94,55 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("all");
 
   const homeFaqs = [
-  {
-    q: "Are all tools on ToolsCenterHub completely free to use?",
-    a: "Yes. Every online tool available on ToolsCenterHub is completely free to use. There are no hidden charges, subscriptions, or registration requirements. Simply choose a tool, upload your file if needed, and download the result instantly.",
-  },
-  {
-    q: "Do I need to create an account before using the tools?",
-    a: "No. You can use all image, PDF, developer, and utility tools without creating an account or logging in. Everything works directly from your browser.",
-  },
-  {
-    q: "Are my uploaded files secure and private?",
-    a: "Yes. Your privacy is important to us. Uploaded files are processed securely and are automatically removed after processing. We do not permanently store or share your files.",
-  },
-  {
-    q: "Can I resize and compress images online without losing quality?",
-    a: "Yes. Our Image Resizer and Image Compressor are designed to reduce file size or change image dimensions while maintaining the best possible image quality for websites, social media, and documents.",
-  },
-  {
-    q: "Which image formats are supported?",
-    a: "Our image tools support popular formats including JPG, JPEG, PNG, and WEBP. Depending on the tool, you can resize, crop, compress, or convert between these formats.",
-  },
-  {
-    q: "Can I merge, split, and convert PDF files online?",
-    a: "Yes. ToolsCenterHub provides free PDF tools including PDF Merger, PDF Splitter, PDF to Word, Word to PDF, PDF to JPG, and JPG to PDF. All tools work directly in your browser.",
-  },
-  {
-    q: "Do I need to install any software?",
-    a: "No. All tools are browser-based, so you don't need to download or install any software. They work on Windows, macOS, Linux, Android, and iPhone.",
-  },
-  {
-    q: "Can I use these online tools on mobile devices?",
-    a: "Absolutely. ToolsCenterHub is fully responsive and works on smartphones, tablets, laptops, and desktop computers using modern browsers like Chrome, Edge, Firefox, and Safari.",
-  },
-  {
-    q: "Which developer tools are available?",
-    a: "We provide JSON Formatter, JSON Validator, Base64 Encoder, Base64 Decoder, URL Encoder, URL Decoder, HTML Minifier, CSS Minifier, JavaScript Minifier, Word Counter, and other developer utilities.",
-  },
-  {
-    q: "Can I generate QR codes and secure passwords online?",
-    a: "Yes. Our free QR Code Generator creates QR codes for URLs, text, Wi-Fi, and more. You can also use the Password Generator to create strong and secure passwords instantly.",
-  },
-  {
-    q: "Why should I choose ToolsCenterHub over other online tool websites?",
-    a: "ToolsCenterHub combines fast performance, secure processing, mobile-friendly design, and a wide collection of free online tools in one place. Whether you need image editing, PDF management, developer utilities, or productivity tools, you can complete your tasks quickly without installing software.",
-  },
-  {
-    q: "What types of online tools are available on ToolsCenterHub?",
-    a: "ToolsCenterHub offers Image Tools, PDF Tools, Developer Tools, QR Code Generator, Password Generator, JSON Formatter, Base64 Tools, URL Encoder and Decoder, HTML/CSS/JavaScript Minifiers, Word Counter, and many other free online utilities.",
-  },
-];
+    {
+      q: "Are all tools on ToolsCenterHub completely free to use?",
+      a: "Yes. Every online tool available on ToolsCenterHub is completely free to use. There are no hidden charges, subscriptions, or registration requirements. Simply choose a tool, upload your file if needed, and download the result instantly.",
+    },
+    {
+      q: "Do I need to create an account before using the tools?",
+      a: "No. You can use all image, PDF, developer, and utility tools without creating an account or logging in. Everything works directly from your browser.",
+    },
+    {
+      q: "Are my uploaded files secure and private?",
+      a: "Yes. Your privacy is important to us. Uploaded files are processed securely and are automatically removed after processing. We do not permanently store or share your files.",
+    },
+    {
+      q: "Can I resize and compress images online without losing quality?",
+      a: "Yes. Our Image Resizer and Image Compressor are designed to reduce file size or change image dimensions while maintaining the best possible image quality for websites, social media, and documents.",
+    },
+    {
+      q: "Which image formats are supported?",
+      a: "Our image tools support popular formats including JPG, JPEG, PNG, and WEBP. Depending on the tool, you can resize, crop, compress, or convert between these formats.",
+    },
+    {
+      q: "Can I merge, split, and convert PDF files online?",
+      a: "Yes. ToolsCenterHub provides free PDF tools including PDF Merger, PDF Splitter, PDF to Word, Word to PDF, PDF to JPG, and JPG to PDF. All tools work directly in your browser.",
+    },
+    {
+      q: "Do I need to install any software?",
+      a: "No. All tools are browser-based, so you don't need to download or install any software. They work on Windows, macOS, Linux, Android, and iPhone.",
+    },
+    {
+      q: "Can I use these online tools on mobile devices?",
+      a: "Absolutely. ToolsCenterHub is fully responsive and works on smartphones, tablets, laptops, and desktop computers using modern browsers like Chrome, Edge, Firefox, and Safari.",
+    },
+    {
+      q: "Which developer tools are available?",
+      a: "We provide JSON Formatter, JSON Validator, Base64 Encoder, Base64 Decoder, URL Encoder, URL Decoder, HTML Minifier, CSS Minifier, JavaScript Minifier, Word Counter, and other developer utilities.",
+    },
+    {
+      q: "Can I generate QR codes and secure passwords online?",
+      a: "Yes. Our free QR Code Generator creates QR codes for URLs, text, Wi-Fi, and more. You can also use the Password Generator to create strong and secure passwords instantly.",
+    },
+    {
+      q: "Why should I choose ToolsCenterHub over other online tool websites?",
+      a: "ToolsCenterHub combines fast performance, secure processing, mobile-friendly design, and a wide collection of free online tools in one place. Whether you need image editing, PDF management, developer utilities, or productivity tools, you can complete your tasks quickly without installing software.",
+    },
+    {
+      q: "What types of online tools are available on ToolsCenterHub?",
+      a: "ToolsCenterHub offers Image Tools, PDF Tools, Developer Tools, QR Code Generator, Password Generator, JSON Formatter, Base64 Tools, URL Encoder and Decoder, HTML/CSS/JavaScript Minifiers, Word Counter, and many other free online utilities.",
+    },
+  ];
   const userChoiceSlugs = [
     "image-compressor",
     "background-remover",
@@ -155,12 +158,18 @@ export default function Home() {
       : activeTab === "choice"
         ? tools.filter((t) => userChoiceSlugs.includes(t.slug))
         : tools.filter((t) => getCategory(t.name) === activeTab);
+  console.log("Active Tab:", activeTab);
 
+  console.log(
+    "Filtered Tools:",
+    tools.filter((t) => getCategory(t.name) === activeTab)
+  );
   const tabs = [
     { label: "All", value: "all" },
     { label: "Image", value: "image" },
     { label: "PDF", value: "pdf" },
     { label: "Dev", value: "dev" },
+    { label: "Calculator", value: "calculator" },
     { label: "Utility", value: "tool" },
     { label: "⭐ User’s Choice", value: "choice" },
   ];
@@ -176,6 +185,8 @@ export default function Home() {
     { types: ["html", "css", "js"], color: "#bd299f" },
     { types: ["base"], color: "#75d545" },
     { types: ["qr"], color: "#412d3c" },
+    { types: ["calculator"], color: "#10b981" },
+
   ];
 
   const getToolColor = (name: string) => {

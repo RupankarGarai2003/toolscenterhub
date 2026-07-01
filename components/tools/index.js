@@ -30,3 +30,6 @@ export { default as JpgToPng } from "./JpgToPng";
 export { default as PngToJpg } from "./PngToJpg";
 export { default as JpgToPdf } from "./JpgToPdf";
 export { default as WordToPdf } from "./WordToPdf";
+
+
+export { default as BMICalculator } from "./BMICalculator";

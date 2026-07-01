@@ -53,6 +53,7 @@ export default function Header() {
     { name: "DEV", key: "json" },
     { name: "UTILITY", key: "password" },
     { name: "CONVERTERS", key: "to" },
+    { name: "CALCULATORS", key: "calculator" },
   ];
 
   return (
