@@ -37,6 +37,7 @@ export default function Footer() {
           <Link href="/help">Help</Link>
           <Link href="/terms">Terms</Link>
           <Link href="/disclaimer">Disclaimer</Link>
+          <Link href="/blog">Blogs</Link>
         </div>
 
         {/* CONTACT */}

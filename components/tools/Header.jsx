@@ -44,21 +44,21 @@ export default function Header() {
 
   /* FILTER */
   const getTools = (category) => {
-  return tools.filter((t) => {
-    if (t.category) return t.category === category;
+    return tools.filter((t) => {
+      if (t.category) return t.category === category;
 
-    // Fallback for tools without a category
-    return t.slug.includes(category);
-  });
-};
- const menus = [
-  { name: "IMAGE", key: "image" },
-  { name: "PDF", key: "pdf" },
-  { name: "DEV", key: "json" },
-  { name: "UTILITY", key: "password" },
-  { name: "CONVERTERS", key: "to" },
-  { name: "CALCULATORS", key: "calculator" },
-];
+      // Fallback for tools without a category
+      return t.slug.includes(category);
+    });
+  };
+  const menus = [
+    { name: "IMAGE", key: "image" },
+    { name: "PDF", key: "pdf" },
+    { name: "DEV", key: "json" },
+    { name: "UTILITY", key: "password" },
+    { name: "CONVERTERS", key: "to" },
+    { name: "CALCULATORS", key: "calculator" },
+  ];
 
   return (
     <header className="header">
@@ -103,13 +103,19 @@ export default function Header() {
               )}
             </div>
           ))}
-
+          <Link href="/blog" className="nav-item">
+            <button>
+              Blogs
+              <span className="underline"></span>
+            </button>
+          </Link>
           {/* TRENDING */}
           <div
             className="nav-item"
             onMouseEnter={() => handleMouseEnter("trending")}
             onMouseLeave={handleMouseLeave}
           >
+
             <button className={active === "trending" ? "active" : ""}>
               🔥 Trending
               <ChevronDown size={14} />
@@ -149,6 +155,7 @@ export default function Header() {
             <div className="menu-dropdown">
 
               {/* STATIC LINKS ONLY */}
+              <Link href="/blog">Blogs</Link>
               <Link href="/about-us">About</Link>
               <Link href="/privacy-policy">Policy</Link>
               <Link href="/contact-us">Contact</Link>
