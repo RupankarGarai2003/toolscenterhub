@@ -110,7 +110,7 @@ export default function Header() {
             </button>
           </Link>
           {/* TRENDING */}
-          <div
+          {/* <div
             className="nav-item"
             onMouseEnter={() => handleMouseEnter("trending")}
             onMouseLeave={handleMouseLeave}
@@ -139,7 +139,7 @@ export default function Header() {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </nav>
 
         {/* 3 DOT MENU (MOBILE) */}
